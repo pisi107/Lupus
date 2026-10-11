@@ -11,7 +11,7 @@
 :root {
   --bg: #030305;
   --panel: #0d0d12;
-  --panel-glass: rgba(13, 13, 18, 0.9);
+  --panel-glass: rgba(13, 13, 18, 0.92);
   --border: rgba(255, 255, 255, 0.08);
   --border-gold: rgba(212, 168, 83, 0.3);
   --text: #ede8df;
@@ -50,7 +50,7 @@ html, body {
 
 .game-hud {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 16px 24px; background: rgba(5, 5, 8, 0.7);
+  padding: 16px 24px; background: rgba(5, 5, 8, 0.75);
   backdrop-filter: blur(16px); border-bottom: 1px solid var(--border);
   z-index: 10; flex-shrink: 0;
 }
@@ -180,9 +180,9 @@ html, body {
     <section id="screen-home" class="screen active">
       <div class="home-hero">
         <div class="home-sigil-big">🐺</div>
-        <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:800;margin-bottom:6px">Edizione Prototipo Guidata</div>
+        <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:800;margin-bottom:6px">Edizione Regolamento Ufficiale</div>
         <h1>Il villaggio<br><span>dorme</span></h1>
-        <p>Crea la partita, scegli il tuo ruolo d'impatto preferito e guida o smaschera il branco nella nuova modalità interattiva ottimizzata.</p>
+        <p>Vivi l'esperienza fedele dei classici party game di deduzione. Scegli il tuo ruolo, fai agire la Guardia, i Lupi e il Veggente nella corretta sequenza notturna.</p>
         <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
           <button class="btn-arcade primary" onclick="gotoScreen('screen-create')">✦ Crea Partita</button>
           <button class="btn-arcade subtle" onclick="gotoScreen('screen-join')">Unisciti con Codice</button>
@@ -195,7 +195,7 @@ html, body {
       <div class="arcade-card" style="width:100%;max-width:750px;">
         <button class="btn-arcade subtle" onclick="gotoScreen('screen-home')" style="padding:6px 10px;font-size:10px;margin-bottom:14px">← Indietro</button>
         <h2 class="screen-title">Configura Villaggio</h2>
-        <p class="screen-subtitle">Imposta il tuo nome e scegli quale ruolo interpretare tu personalmente nella partita demo.</p>
+        <p class="screen-subtitle">Imposta il tuo nome e scegli il tuo ruolo per iniziare subito la partita.</p>
 
         <div class="grid-config">
           <div>
@@ -204,17 +204,17 @@ html, body {
               <input id="hostName" maxlength="16" placeholder="Es. Gio">
             </div>
             <div class="input-group">
-              <label>Il tuo ruolo desiderato</label>
+              <label>Il tuo ruolo</label>
               <select id="forcedRole">
-                <option value="wolf">🐺 Lupo mannaro (Attacca nel buio)</option>
-                <option value="seer">🔮 Veggente (Indaga sui sospetti)</option>
+                <option value="wolf">🐺 Lupo mannaro (Sbrana la notte)</option>
+                <option value="seer">🔮 Veggente (Indaga sui lupi)</option>
                 <option value="guard">🛡️ Guardia (Protegge le vittime)</option>
-                <option value="hunter">🏹 Cacciatore (Trascina un nemico morendo)</option>
-                <option value="random">🎲 Casuale (Tratti misti)</option>
+                <option value="hunter">🏹 Cacciatore (Vendetta finale)</option>
+                <option value="random">🎲 Casuale</option>
               </select>
             </div>
             <div class="input-group">
-              <label>Partecipanti totali</label>
+              <label>Numero partecipanti</label>
               <div style="display:flex;align-items:center;gap:10px;background:rgba(4,4,7,0.8);border:1px solid var(--border);padding:6px 12px;border-radius:10px;">
                 <button class="btn-arcade subtle" onclick="changeCount(-1)" style="padding:4px 10px">−</button>
                 <strong id="countDisplay" style="font-family:'Cinzel',serif;font-size:16px;flex:1;text-align:center">6</strong>
@@ -225,7 +225,7 @@ html, body {
 
           <div>
             <div class="input-group">
-              <label>Ruoli attivi nella partita</label>
+              <label>Ruoli attivi</label>
               <div id="rolePicker" class="role-grid"></div>
             </div>
             <div id="roleWarning" style="font-size:10px;color:var(--gold);margin-top:6px"></div>
@@ -274,7 +274,7 @@ html, body {
               <span class="btn-arcade gold" style="cursor:default;pointer-events:none">HOST</span>
             </div>
             <div style="font-size:11px;color:var(--muted);line-height:1.5">
-              💡 Clicca su "+ Bot" per popolare la stanza con altri abitanti prima di iniziare la partita.
+              💡 Clicca su "+ Bot" per popolare la stanza con altri abitanti prima di iniziare.
             </div>
           </div>
 
@@ -354,11 +354,11 @@ html, body {
 
 <script>
 const ROLE_DATA={
- wolf:{name:'Lupo mannaro',icon:'🐺',team:'lupi',desc:'Ogni notte scegli un abitante da eliminare furtivamente.'},
- seer:{name:'Veggente',icon:'🔮',team:'villaggio',desc:'Scrutando nel buio puoi scoprire chi è segretamente un lupo.'},
- guard:{name:'Guardia',icon:'🛡️',team:'villaggio',desc:'Proteggi ogni notte un abitante dagli artigli dei lupi.'},
- hunter:{name:'Cacciatore',icon:'🏹',team:'villaggio',desc:'Se vieni eliminato, porti con te un ultimo bersaglio.'},
- villager:{name:'Contadino',icon:'🌾',team:'villaggio',desc:'Osserva i sospetti e vota al rogo per ripulire il villaggio.'}
+ wolf:{name:'Lupo mannaro',icon:'🐺',team:'lupi',desc:'Ogni notte scegli un abitante da sbranare.'},
+ seer:{name:'Veggente',icon:'🔮',team:'villaggio',desc:'Ogni notte scopri se un giocatore è un Lupo.'},
+ guard:{name:'Guardia',icon:'🛡️',team:'villaggio',desc:'Ogni notte proteggi una persona dagli attacchi.'},
+ hunter:{name:'Cacciatore',icon:'🏹',team:'villaggio',desc:'Se vieni eliminato, porti un altro con te.'},
+ villager:{name:'Contadino',icon:'🌾',team:'villaggio',desc:'Osserva, discuti e vota al rogo.'}
 };
 
 const OPTIONAL_ROLES=['wolf','seer','guard','hunter'];
@@ -466,7 +466,6 @@ function startGame(){
  if(!room||room.players.length<3){showToast('Servono almeno 3 giocatori.');return;}
  const players=room.players.map(p=>({...p,alive:true,role:null}));
  
- // Assegnazione forzata del ruolo scelto al creatore (tu) per garantirti il controllo
  const forced=document.getElementById('forcedRole').value;
  const mePlayer=players.find(p=>p.id===room.hostId);
  if(forced!=='random'&&chosenRoles.has(forced)){
@@ -475,7 +474,6 @@ function startGame(){
   mePlayer.role='wolf';
  }
 
- // Assegna i ruoli agli altri giocatori bot
  const remainingRoles=[...room.roles].filter(r=>r!==mePlayer.role);
  players.forEach(p=>{
   if(p.id!==room.hostId){
@@ -487,8 +485,8 @@ function startGame(){
  const myIndex=players.findIndex(p=>p.id===room.hostId);
  if(myIndex>0)[players[0],players[myIndex]]=[players[myIndex],players[0]];
 
- game={players,round:1,phase:'night',log:[],narrative:'Il villaggio si addormenta. Scegli con attenzione la tua mossa strategica prima che sorga l’alba.',votes:{},wolfTarget:null,guardTarget:null,seerTarget:null,hostId:room.hostId};
- addLog('Partita avviata. Ruoli assegnati.');gotoScreen('screen-game');renderGame();
+ game={players,round:1,phase:'night',log:[],narrative:'Il villaggio si addormenta. La Guardia veglia, i Lupi si preparano e il Veggente scruta nel buio.',votes:{},wolfTarget:null,guardTarget:null,seerTarget:null,hostId:room.hostId};
+ addLog('Partita avviata secondo il regolamento ufficiale.');gotoScreen('screen-game');renderGame();
 }
 
 function me(){return game?.players.find(p=>p.id===game.hostId);}
@@ -505,10 +503,10 @@ function renderGame(){
  else document.body.classList.remove('night-mode');
 
  document.getElementById('roundLabel').textContent=(isNight?'Notte ':'Giorno ')+game.round;
- document.getElementById('gameTitle').textContent=isNight?'Fase Oscura':'Assemblea Pubblica';
+ document.getElementById('gameTitle').textContent=isNight?'Fase Notturna (Sequenza Ufficiale)':'Assemblea del Giorno';
  document.getElementById('aliveCount').textContent='Vivi: '+alive.length;
  document.getElementById('phaseIcon').textContent=isNight?'🌒':'☀️';
- document.getElementById('phaseTitle').textContent=isNight?'Il Branco si Muove':'Discussione e Rogo';
+ document.getElementById('phaseTitle').textContent=isNight?'Il Villaggio Dorme':'Discussione e Linciaggio';
  document.getElementById('narrativeStory').textContent=game.narrative;
 
  document.getElementById('gamePlayers').innerHTML=game.players.map(p=>
@@ -516,7 +514,7 @@ function renderGame(){
     <div class="avatar">${p.alive?'👤':'👻'}</div>
     <div style="overflow:hidden;flex:1">
       <div style="font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHTML(p.name)} ${p.id===game.hostId?'<span style="color:var(--gold)">★ (Tu)</span>':''}</div>
-      <div style="font-size:9px;color:var(--muted)">${p.alive?'Vivo':'Eliminato'}</div>
+      <div style="font-size:9px;color:var(--muted)">${p.alive?'Vivo':'Fantasma'}</div>
     </div>
   </div>`
  ).join('');
@@ -530,7 +528,7 @@ function renderPersonal(){
  const p=me(),area=document.getElementById('personalArea');area.innerHTML='';
  if(!p)return;
  if(!p.alive){
-  area.innerHTML='<div class="secret-role-card"><div style="font-size:28px">👻</div><h3 style="font-family:\'Cinzel\',serif;margin:4px 0">Spettatore</h3><p style="font-size:11px;color:var(--muted);margin:0">Sei stato eliminato. Assisti all’epilogo dal regno dei defunti.</p></div>';return;
+  area.innerHTML='<div class="secret-role-card"><div style="font-size:28px">👻</div><h3 style="font-family:\'Cinzel\',serif;margin:4px 0">Fantasma</h3><p style="font-size:11px;color:var(--muted);margin:0">Sei stato eliminato. Non puoi più parlare né votare (regola ufficiale).</p></div>';return;
  }
  const r=roleOf(p);
  area.innerHTML=`<div class="secret-role-card">
@@ -556,24 +554,24 @@ function addChoicesList(container,p,action){
 function renderNightOpts(p){
  const area=document.getElementById('personalArea');
  let text='',field='';
- if(p.role==='wolf'){text='Scegli chi sbranare stanotte:';field='wolfTarget';}
- else if(p.role==='seer'){text='Scegli chi scrutare nel buio:';field='seerTarget';}
- else if(p.role==='guard'){text='Scegli chi proteggere stanotte:';field='guardTarget';}
- else {area.insertAdjacentHTML('beforeend','<div style="font-size:11px;color:var(--muted);margin-top:6px">Non possiedi poteri notturni. Attendi l’alba in silenzio.</div>');return;}
+ if(p.role==='wolf'){text='[Fase Lupi] Scegli chi sbranare stanotte:';field='wolfTarget';}
+ else if(p.role==='seer'){text='[Fase Veggente] Scegli chi scrutare nel buio:';field='seerTarget';}
+ else if(p.role==='guard'){text='[Fase Guardia] Scegli chi proteggere stanotte:';field='guardTarget';}
+ else {area.insertAdjacentHTML('beforeend','<div style="font-size:11px;color:var(--muted);margin-top:6px">Non possiedi azioni notturne. Attendi l’alba.</div>');return;}
 
  area.insertAdjacentHTML('beforeend',`<div style="font-size:11px;color:var(--muted);margin:8px 0 4px">${text}</div><div id="nightChoices" class="choices-grid"></div><div id="privateResult"></div>`);
  addChoicesList(area.querySelector('#nightChoices'),p,(x,btn)=>{
   game[field]=x.id;
   if(field==='seerTarget'){
    document.getElementById('privateResult').innerHTML=`<div style="margin-top:6px;font-size:11px;background:rgba(255,255,255,0.05);padding:6px;border-radius:6px">🔮 Esito visione: ${escapeHTML(x.name)} ${x.role==='wolf'?'<strong>è un Lupo!</strong>':'non è un lupo.'}</div>`;
-  }else showToast('Bersaglio salvato.');
+  }else showToast('Azione salvata.');
   area.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');
  });
 }
 
 function renderVoteOpts(p){
  const area=document.getElementById('personalArea');
- area.insertAdjacentHTML('beforeend','<div style="font-size:11px;color:var(--muted);margin:8px 0 4px">Vota il sospetto da mandare al rogo:</div><div id="voteChoices" class="choices-grid"></div>');
+ area.insertAdjacentHTML('beforeend','<div style="font-size:11px;color:var(--muted);margin:8px 0 4px">Vota l’abitante da sottoporre a linciaggio:</div><div id="voteChoices" class="choices-grid"></div>');
  addChoicesList(area.querySelector('#voteChoices'),p,(x,btn)=>{
   game.votes[p.id]=x.id;showToast('Voto registrato.');renderGame();
  });
@@ -586,78 +584,95 @@ function renderActions(){
   const b=document.createElement('button');b.className='btn-arcade subtle';b.textContent='Aggiorna Stato';b.onclick=renderGame;act.appendChild(b);return;
  }
  if(game.phase==='night'){
-  const b=document.createElement('button');b.className='btn-arcade primary';b.style.width='100%';b.textContent='☀️ Risolvi la Notte →';b.onclick=resolveNight;act.appendChild(b);
+  const b=document.createElement('button');b.className='btn-arcade primary';b.style.width='100%';b.textContent='☀️ Risolvi la Notte (Regola Ufficiale) →';b.onclick=resolveNight;act.appendChild(b);
  }else{
-  const b=document.createElement('button');b.className='btn-arcade primary';b.style.flex='1';b.textContent='🔥 Emetti Rogo →';b.onclick=resolveVote;act.appendChild(b);
+  const b=document.createElement('button');b.className='btn-arcade primary';b.style.flex='1';b.textContent='🔥 Emetti Linciaggio →';b.onclick=resolveVote;act.appendChild(b);
  }
 }
 
 function resolveNight(){
- // Gestione obiettivo lupi
- let wolfTargetId=game.wolfTarget;
+ // 1. Azione Guardia
+ let guardedId = game.guardTarget;
+
+ // 2. Azione Lupi
+ let wolfTargetId = game.wolfTarget;
  if(!wolfTargetId){
-  const valid=game.players.filter(x=>x.alive&&x.role!=='wolf');
-  if(valid.length) wolfTargetId=valid[Math.floor(Math.random()*valid.length)].id;
- }
- 
- const victim=game.players.find(p=>p.id===wolfTargetId);
- let savedByGuard=false;
- if(game.guardTarget&&game.guardTarget===wolfTargetId){
-  savedByGuard=true;
+  const valid = game.players.filter(x=>x.alive&&x.role!=='wolf');
+  if(valid.length) wolfTargetId = valid[Math.floor(Math.random()*valid.length)].id;
  }
 
- if(victim&&victim.alive&&!savedByGuard){
-  victim.alive=false;
-  game.narrative='Il sole sorge sul villaggio. Una tragedia si è consumata: '+victim.name+' è stato sbranato durante la notte.';
-  addLog(victim.name+' è stato eliminato dai lupi.');
- }else{
-  game.narrative='Il sole sorge pacifico. Grazie alla ronda notturna o a circostanze fortunate, nessuno è rimasto vittima dei lupi stanotte.';
+ const victim = game.players.find(p=>p.id===wolfTargetId);
+ let saved = false;
+ if(guardedId && guardedId === wolfTargetId){
+  saved = true;
+ }
+
+ if(victim && victim.alive && !saved){
+  victim.alive = false;
+  game.narrative = 'Il sole sorge sul villaggio. Dramma nella notte: i lupi hanno sbranato '+victim.name+'! Diventa un Fantasma.';
+  addLog(victim.name+' è stato sbranato dai lupi.');
+ } else if(saved) {
+  game.narrative = 'Il sole sorge pacifico. La Guardia ha protetto la vittima designata dai lupi: nessuno è morto stanotte!';
+  addLog('La Guardia ha salvato la vittima dei lupi.');
+ } else {
+  game.narrative = 'Il sole sorge sul villaggio. La notte è trascorsa in silenzio.';
   addLog('Nessuna vittima stanotte.');
  }
  
- const w=checkWinner();if(w){finishGame(w);return;}
- game.phase='day';game.votes={};game.wolfTarget=game.guardTarget=game.seerTarget=null;renderGame();
+ const w = checkWinner(); if(w){finishGame(w);return;}
+ game.phase = 'day'; game.votes = {}; game.wolfTarget = game.guardTarget = game.seerTarget = null; renderGame();
 }
 
 function resolveVote(){
- const alive=alivePlayers(),votes={...game.votes};
- alive.forEach(p=>{if(!votes[p.id]){const opts=alive.filter(x=>x.id!==p.id);if(opts.length)votes[p.id]=opts[Math.floor(Math.random()*opts.length)].id;}});
+ const alive = alivePlayers(), votes = {...game.votes};
+ alive.forEach(p=>{if(!votes[p.id]){const opts = alive.filter(x=>x.id!==p.id);if(opts.length)votes[p.id]=opts[Math.floor(Math.random()*opts.length)].id;}});
  
- const tally={};Object.values(votes).forEach(id=>tally[id]=(tally[id]||0)+1);
- const max=Math.max(0,...Object.values(tally)),top=Object.keys(tally).filter(id=>tally[id]===max);
+ const tally = {}; Object.values(votes).forEach(id=>tally[id]=(tally[id]||0)+1);
+ const max = Math.max(0,...Object.values(tally)), top = Object.keys(tally).filter(id=>tally[id]===max);
  
- if(top.length!==1){
-  game.narrative='Il villaggio si è diviso nelle accuse e nessuno è stato condannato al rogo.';
-  addLog('Voto in parità: nessun condannato.');
- }else{
-  const v=game.players.find(p=>p.id===top[0]);
-  if(v&&v.alive){
-   v.alive=false;
-   game.narrative='La piazza ha votato all’unanimità: '+v.name+' è stato condannato al rogo ed era un '+ROLE_DATA[v.role].name+'!';
-   addLog(v.name+' è stato condannato al rogo.');
+ if(top.length !== 1){
+  game.narrative = 'Le accuse si sono divise equamente. Il villaggio non raggiunge la maggioranza e nessuno viene linciato.';
+  addLog('Voto in parità: nessun linciaggio.');
+ } else {
+  const v = game.players.find(p=>p.id===top[0]);
+  if(v && v.alive){
+   v.alive = false;
+   game.narrative = 'La piazza inferocita ha votato per il linciaggio: '+v.name+' è stato giustiziato al rogo!';
+   addLog(v.name+' è stato linciato.');
+   
+   // Regola Cacciatore
+   if(v.role === 'hunter'){
+    const options = alivePlayers().filter(p=>p.id!==v.id);
+    if(options.length){
+     const shot = options[Math.floor(Math.random()*options.length)];
+     shot.alive = false;
+     game.narrative += ' Nel cadere, il Cacciatore ha trascinato con sé '+shot.name+'!';
+     addLog('Il Cacciatore ha eliminato '+shot.name+' nel momento fatale.');
+    }
+   }
   }
  }
- const w=checkWinner();if(w){finishGame(w);return;}nextNight();
+ const w = checkWinner(); if(w){finishGame(w);return;} nextNight();
 }
 
 function nextNight(){
- game.round++;game.phase='night';
- game.narrative='La notte avvolge nuovamente le case. I ruoli speciali agiscono in segreto.';
+ game.round++; game.phase = 'night';
+ game.narrative = 'La luce del giorno svanisce. Il villaggio si barrica in casa per una nuova notte.';
  renderGame();
 }
 
 function checkWinner(){
- const alive=alivePlayers(),wolves=alive.filter(p=>p.role==='wolf').length,others=alive.length-wolves;
- if(wolves===0)return 'villaggio';
- if(wolves>=others)return 'lupi';
+ const alive = alivePlayers(), wolves = alive.filter(p=>p.role==='wolf').length, others = alive.length - wolves;
+ if(wolves === 0) return 'villaggio';
+ if(wolves >= others) return 'lupi';
  return null;
 }
 
 function finishGame(winner){
  document.body.classList.remove('night-mode');
- document.getElementById('winnerTitle').textContent=winner==='lupi'?'I Lupi hanno vinto':'Il Villaggio ha trionfato';
- document.getElementById('winnerDescription').textContent=winner==='lupi'?'I mannari hanno sterminato i residenti.':'Tutti i lupi sono stati eliminati.';
- document.getElementById('finalRoles').innerHTML=game.players.map(p=>`<div class="player-token"><div class="avatar">${roleOf(p).icon}</div><div style="overflow:hidden"><div style="font-size:11px;font-weight:700">${escapeHTML(p.name)}</div><div style="font-size:9px;color:var(--muted)">${roleOf(p).name}</div></div></div>`).join('');
+ document.getElementById('winnerTitle').textContent = winner==='lupi' ? 'I Lupi hanno divorato il villaggio' : 'Il Villaggio ha trionfato';
+ document.getElementById('winnerDescription').textContent = winner==='lupi' ? 'I mannari hanno preso il sopravvento.' : 'Tutti i lupi sono stati eliminati.';
+ document.getElementById('finalRoles').innerHTML = game.players.map(p=>`<div class="player-token"><div class="avatar">${roleOf(p).icon}</div><div style="overflow:hidden"><div style="font-size:11px;font-weight:700">${escapeHTML(p.name)}</div><div style="font-size:9px;color:var(--muted)">${roleOf(p).name}</div></div></div>`).join('');
  gotoScreen('screen-end');
 }
 
