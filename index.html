@@ -1,0 +1,474 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101015">
+<title>LUPUS — Il villaggio dorme</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg:#101015;--panel:#191920;--panel2:#20202a;
+  --line:#343441;--text:#f4f0e8;--muted:#a6a2b2;
+  --red:#b83246;--red2:#e04b60;--gold:#e5b86b;
+  --green:#55c58b;--radius:20px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:radial-gradient(ellipse at 50% -20%,#3a1b2a 0,transparent 45%),var(--bg);
+  color:var(--text);font-family:Inter,system-ui,sans-serif;min-height:100vh
+}
+button,input,select{font:inherit}
+button{cursor:pointer;border:0}
+.shell{max-width:1100px;margin:auto;padding:20px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0 24px}
+.brand{display:flex;align-items:center;gap:12px}
+.sigil{width:44px;height:44px;border:1px solid #71404b;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#3c1e2b,#17171e);font-size:23px}
+.brandname{font-family:Cinzel,serif;letter-spacing:2px;font-weight:800;font-size:19px}
+.brandtag{color:var(--muted);font-size:10px;letter-spacing:2px;margin-top:3px}
+.pill,.tag{border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:12px}
+.hero{position:relative;overflow:hidden;border:1px solid #49313c;border-radius:28px;padding:clamp(26px,6vw,62px);background:linear-gradient(120deg,#211820ef,#17171edb),radial-gradient(circle at 85% 25%,#6d2837,transparent 40%);min-height:340px;display:flex;align-items:center}
+.hero:after{content:'☾';position:absolute;right:5%;top:-50px;font-size:clamp(160px,32vw,340px);line-height:1;color:#f2d9a90d;pointer-events:none}
+.hero-copy{max-width:650px;position:relative;z-index:1}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:3px;color:var(--gold);font-weight:800}
+.hero h1{font-family:Cinzel,serif;font-size:clamp(40px,8vw,78px);line-height:1.02;margin:14px 0 18px}
+.hero h1 span{color:var(--red2)}
+.hero p{color:#c5bfca;max-width:540px;line-height:1.7;margin:0 0 25px}
+.actions,.phase-actions{display:flex;flex-wrap:wrap;gap:10px}
+.btn{padding:13px 18px;border-radius:12px;font-weight:800;transition:.2s;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.primary{background:linear-gradient(135deg,var(--red2),#922538);color:white}
+.secondary{background:#ffffff0a;color:var(--text);border:1px solid var(--line)}
+.gold{background:var(--gold);color:#241a11}
+.subtle{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.section-title{font-family:Cinzel,serif;font-size:22px;margin:32px 0 14px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.feature,.panel,.player-card{border:1px solid var(--line);background:linear-gradient(150deg,#1d1d26,#17171d);border-radius:18px;padding:19px}
+.feature .ico{font-size:23px;margin-bottom:12px}
+.feature h3{margin:0 0 8px;font-size:14px}
+.feature p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
+.footer{color:#777382;font-size:11px;text-align:center;padding:28px 0 14px}
+.view{display:none}
+.view.active{display:block}
+.back{margin-bottom:18px}
+.pagehead{margin:12px 0 24px}
+.pagehead h1{font-family:Cinzel,serif;font-size:clamp(28px,5vw,42px);margin:8px 0}
+.pagehead p{color:var(--muted);line-height:1.6}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:8px;margin:15px 0}
+.field label{font-size:12px;color:#cbc6d2;font-weight:700}
+.field input,.field select{background:#101016;border:1px solid var(--line);color:var(--text);padding:13px 14px;border-radius:11px;outline:none;width:100%}
+.field input:focus,.field select:focus{border-color:#a74254}
+.hint{font-size:11px;color:var(--muted);line-height:1.5}
+.role-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.role-item{display:flex;align-items:center;gap:11px;background:#111117;border:1px solid var(--line);border-radius:13px;padding:12px;cursor:pointer}
+.role-item input{accent-color:var(--red2);width:17px;height:17px}
+.role-symbol{font-size:22px;width:30px;text-align:center}
+.role-name{font-size:13px;font-weight:800}
+.role-desc{font-size:10px;color:var(--muted);margin-top:3px}
+.counter{display:flex;align-items:center;gap:12px}
+.counter button{width:36px;height:36px;border-radius:10px;background:#2b2832;color:white;font-size:20px}
+.counter strong{font-size:18px;min-width:22px;text-align:center}
+.notice{padding:13px 14px;border:1px solid #574632;background:#30261a;border-radius:12px;color:#e7c58c;font-size:12px;line-height:1.55;margin:12px 0}
+.room-code{font-family:Cinzel,serif;letter-spacing:8px;font-size:clamp(28px,7vw,46px);font-weight:800;color:var(--gold);background:#0d0d12;border:1px dashed #65503b;border-radius:16px;padding:18px;text-align:center}
+.split{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:16px}
+.players{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.player-card{padding:13px;display:flex;align-items:center;gap:10px}
+.avatar{width:37px;height:37px;border-radius:12px;background:#34202b;display:grid;place-items:center;font-size:18px;flex-shrink:0}
+.player-name{font-size:13px;font-weight:800}
+.player-state{font-size:10px;color:var(--muted);margin-top:4px}
+.status-dot{width:7px;height:7px;background:var(--green);border-radius:50%;margin-left:auto}
+.roomtop{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.roomtop h2{font-family:Cinzel,serif;margin:0}
+.phase-banner{padding:25px;border-radius:18px;background:linear-gradient(135deg,#301a24,#17171f);border:1px solid #57303b;text-align:center;margin-bottom:16px}
+.phase-icon{font-size:40px}
+.phase-banner h2{font-family:Cinzel,serif;font-size:27px;margin:10px 0}
+.phase-banner p{color:#c5bfca;line-height:1.6;margin:0}
+.secret-role{border:1px solid #7b3847;background:linear-gradient(135deg,#351d29,#1a1820);border-radius:20px;padding:24px;text-align:center;margin:15px 0}
+.secret-role .big{font-size:52px}
+.secret-role h2{font-family:Cinzel,serif;font-size:29px;margin:9px}
+.secret-role p{color:#d0c7d1;line-height:1.6;font-size:13px}
+.private-tag{color:var(--gold);letter-spacing:2px;text-transform:uppercase;font-size:10px;font-weight:800}
+.choice-list{display:grid;gap:9px;margin:16px 0}
+.choice{padding:14px;border-radius:12px;border:1px solid var(--line);background:#121218;color:var(--text);text-align:left;display:flex;align-items:center;gap:12px}
+.choice.selected{border-color:var(--red2);background:#3a1e28}
+.choice .avatar{width:34px;height:34px}
+.choice small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
+.vote-result{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);font-size:13px}
+.vote-result:last-child{border-bottom:0}
+.tag.red{background:#43202a;color:#ffb3be}
+.tag.green{background:#173b2b;color:#8be0b1}
+.tag.gold{background:#3a2c1b;color:#e7c58c}
+.toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,20px);background:#f4f0e8;color:#17131a;padding:12px 17px;border-radius:12px;font-size:12px;font-weight:800;opacity:0;pointer-events:none;transition:.25s;z-index:99;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.small-note{font-size:10px;color:#777382;line-height:1.6}
+@media(max-width:720px){
+ .shell{padding:14px}.topbar{padding-bottom:16px}.pill{font-size:10px}
+ .hero{min-height:0;padding:28px 22px}
+ .features,.grid2,.split{grid-template-columns:1fr}
+ .feature{display:flex;gap:13px;align-items:flex-start}.feature .ico{margin:0}
+ .role-list{grid-template-columns:1fr}.players{grid-template-columns:1fr 1fr}
+ .brandtag{letter-spacing:1px}.section-title{margin-top:25px}.panel{padding:15px}
+}
+@media(max-width:390px){.players{grid-template-columns:1fr}.brandname{font-size:16px}.pill{display:none}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header class="topbar">
+  <div class="brand">
+    <div class="sigil">☾</div>
+    <div><div class="brandname">LUPUS</div><div class="brandtag">IL VILLAGGIO DORME</div></div>
+  </div>
+  <div class="pill">✦ PARTY GAME · PROTOTIPO</div>
+</header>
+
+<main>
+<section id="home" class="view active">
+  <div class="hero"><div class="hero-copy">
+    <div class="eyebrow">La notte nasconde la verità</div>
+    <h1>Di chi ti puoi<br><span>fidare?</span></h1>
+    <p>Un villaggio. Ruoli segreti. Alleanze, sospetti e tradimenti. Crea una stanza, invita gli amici e lascia che sia il gioco a gestire la partita — senza narratore.</p>
+    <div class="actions">
+      <button class="btn primary" onclick="showView('create')">✦ Crea una partita</button>
+      <button class="btn secondary" onclick="showView('join')">Entra con un codice ↗</button>
+    </div>
+  </div></div>
+  <h2 class="section-title">Una partita, zero narratori</h2>
+  <div class="features">
+    <div class="feature"><div class="ico">🎭</div><div><h3>Ruoli segreti</h3><p>Ogni partecipante ha il suo ruolo privato. Nessuno vede le carte degli altri.</p></div></div>
+    <div class="feature"><div class="ico">🌒</div><div><h3>Notte automatica</h3><p>L'app guida le fasi e raccoglie le azioni segrete nell'ordine giusto.</p></div></div>
+    <div class="feature"><div class="ico">🗳️</div><div><h3>Voti dal telefono</h3><p>Vota in privato, scopri il verdetto e continua fino alla vittoria di una fazione.</p></div></div>
+  </div>
+  <div class="notice"><strong>Versione iniziale:</strong> questa anteprima serve a provare interfaccia e regole su un solo browser. Le stanze tra telefoni diversi si attiveranno collegando Firebase nella fase successiva.</div>
+</section>
+
+<section id="create" class="view">
+  <button class="btn subtle back" onclick="showView('home')">← Indietro</button>
+  <div class="pagehead"><div class="eyebrow">Nuova partita</div><h1>Prepara il villaggio</h1><p>Decidi quanti siete e quali ruoli possono entrare in gioco.</p></div>
+  <div class="grid2">
+    <div class="panel">
+      <h3 style="margin-top:0">Nome del giocatore</h3>
+      <div class="field"><label for="hostName">Come ti chiamano gli altri?</label><input id="hostName" maxlength="18" placeholder="Es. Gio"></div>
+      <div class="field"><label>Numero di giocatori</label><div class="counter"><button onclick="changeCount(-1)">−</button><strong id="countDisplay">8</strong><button onclick="changeCount(1)">+</button><span class="hint">da 4 a 99</span></div></div>
+      <div class="field"><label for="winCondition">Condizione di vittoria dei lupi</label><select id="winCondition"><option value="parity">Quando i lupi sono in parità con gli altri vivi</option><option value="all">Quando tutti gli altri sono eliminati</option></select></div>
+      <div class="notice">Consiglio: per la prima partita prova con 6–10 persone e pochi ruoli speciali.</div>
+    </div>
+    <div class="panel">
+      <h3 style="margin-top:0">Scegli i ruoli disponibili</h3>
+      <p class="hint">I ruoli selezionati vengono assegnati casualmente. I Contadini riempiono gli eventuali posti rimasti.</p>
+      <div id="rolePicker" class="role-list"></div>
+      <div id="roleWarning" class="hint" style="margin-top:12px"></div>
+    </div>
+  </div>
+  <div class="phase-actions"><button class="btn primary" onclick="createRoom()">Crea stanza e lobby →</button></div>
+</section>
+
+<section id="join" class="view">
+  <button class="btn subtle back" onclick="showView('home')">← Indietro</button>
+  <div class="pagehead"><div class="eyebrow">Entra nel villaggio</div><h1>Ti hanno invitato?</h1><p>Inserisci il codice della stanza e il nome che vedranno gli altri.</p></div>
+  <div class="panel" style="max-width:520px">
+    <div class="field"><label for="joinName">Il tuo nome</label><input id="joinName" maxlength="18" placeholder="Es. Ale"></div>
+    <div class="field"><label for="joinCode">Codice stanza</label><input id="joinCode" maxlength="6" placeholder="ABC123" style="text-transform:uppercase;letter-spacing:4px;font-family:Cinzel,serif;font-size:22px"></div>
+    <button class="btn primary" onclick="joinRoom()">Entra nella stanza →</button>
+    <p class="hint">Nella versione prototipo il codice funziona soltanto nello stesso browser. Il multiplayer vero richiederà Firebase.</p>
+  </div>
+</section>
+
+<section id="room" class="view">
+  <div class="roomtop"><div><div class="eyebrow">La tua partita</div><h2 id="roomTitle">Il villaggio</h2></div><button class="btn subtle" onclick="leaveRoom()">Esci ↗</button></div>
+  <div class="grid2" style="margin-top:18px">
+    <div class="panel">
+      <div class="hint" style="margin-bottom:9px">CODICE PER INVITARE GLI AMICI</div><div id="roomCode" class="room-code">------</div>
+      <div class="actions" style="margin-top:12px"><button class="btn secondary" onclick="copyCode()">▣ Copia codice</button><span id="hostBadge" class="tag gold">CREATORE</span></div>
+      <div class="notice"><strong>Anteprima locale:</strong> per simulare una partita completa, usa “Avvia demo” quando ci sono almeno 4 giocatori. Il multiplayer tra telefoni diversi sarà aggiunto con Firebase.</div>
+    </div>
+    <div class="panel">
+      <div class="roomtop"><h3 style="margin:0">Partecipanti</h3><span id="playerCount" class="tag">1 giocatore</span></div>
+      <div id="lobbyPlayers" class="players" style="margin-top:14px"></div>
+      <div class="phase-actions"><button class="btn primary" id="startBtn" onclick="startGame()">Avvia demo →</button><button class="btn secondary" onclick="addDemoPlayers()">+ Aggiungi giocatori demo</button></div>
+      <p class="small-note">I giocatori demo servono a provare il flusso: non sono persone collegate da altri telefoni.</p>
+    </div>
+  </div>
+</section>
+
+<section id="game" class="view">
+  <div class="roomtop"><div><div class="eyebrow" id="roundLabel">Giorno 1</div><h2 id="gameTitle">Il villaggio si sveglia</h2></div><span id="aliveCount" class="tag green">Vivi: 8</span></div>
+  <div class="phase-banner" style="margin-top:18px"><div class="phase-icon" id="phaseIcon">🌒</div><h2 id="phaseTitle">La notte scende</h2><p id="phaseDescription"></p></div>
+  <div class="split">
+    <div class="panel"><div class="private-tag">Area personale</div><div id="personalArea"></div></div>
+    <div class="panel"><div class="roomtop"><h3 style="margin:0">Villaggio</h3><span class="tag" id="phaseTag">NOTTE</span></div><div id="gamePlayers" style="margin-top:12px"></div><div id="phaseActions" class="phase-actions"></div></div>
+  </div>
+  <div class="panel" style="margin-top:16px"><h3 style="margin-top:0">Cronaca pubblica</h3><div id="log"></div></div>
+</section>
+
+<section id="end" class="view">
+  <div class="phase-banner" style="margin-top:30px"><div class="phase-icon">🏆</div><div class="eyebrow">Fine della partita</div><h2 id="winnerTitle">Il villaggio ha vinto</h2><p id="winnerDescription"></p></div>
+  <div class="panel"><h3>Ruoli rivelati</h3><div id="finalRoles" class="players"></div><div class="phase-actions"><button class="btn primary" onclick="newGame()">Nuova partita</button><button class="btn secondary" onclick="showView('home')">Torna alla home</button></div></div>
+</section>
+</main>
+<div class="footer">LUPUS · PROTOTIPO DI GIOCO · LE REGOLE POSSONO ESSERE PERSONALIZZATE</div>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+const ROLE_DATA={
+ wolf:{name:'Lupo mannaro',icon:'🐺',team:'lupi',desc:'Ogni notte scegli insieme agli altri lupi una vittima.'},
+ seer:{name:'Veggente',icon:'🔮',team:'villaggio',desc:'Ogni notte scopri se un giocatore è un lupo.'},
+ guard:{name:'Guardia',icon:'🛡️',team:'villaggio',desc:'Ogni notte proteggi una persona dalla vittima dei lupi.'},
+ witch:{name:'Strega',icon:'🧪',team:'villaggio',desc:'Una volta per partita puoi salvare la vittima o avvelenare un giocatore.'},
+ hunter:{name:'Cacciatore',icon:'🏹',team:'villaggio',desc:'Se vieni eliminato, puoi portare con te un ultimo giocatore.'},
+ cupid:{name:'Cupido',icon:'💘',team:'villaggio',desc:'La prima notte lega due giocatori: se uno muore, muore anche l’altro.'},
+ medium:{name:'Medium',icon:'🕯️',team:'villaggio',desc:'Puoi chiedere un indizio sulla partita.'},
+ villager:{name:'Contadino',icon:'🌾',team:'villaggio',desc:'Osserva, discuti e vota per smascherare i lupi.'}
+};
+const OPTIONAL_ROLES=['wolf','seer','guard','witch','hunter','cupid','medium'];
+let chosenRoles=new Set(['wolf','seer','guard']);
+let targetCount=8,room=null,game=null;
+const DEMO_NAMES=['Marta','Luca','Sofia','Ale','Nico','Emma','Tommi','Vale','Fede','Chiara','Andre','Dani','Teo','Sara','Miki'];
+
+function showView(id){
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+function toast(msg){
+ const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');
+ clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
+}
+function changeCount(d){
+ targetCount=Math.max(4,Math.min(99,targetCount+d));
+ document.getElementById('countDisplay').textContent=targetCount;updateRoleWarning();
+}
+function renderRolePicker(){
+ const p=document.getElementById('rolePicker');p.innerHTML='';
+ OPTIONAL_ROLES.forEach(key=>{
+  const r=ROLE_DATA[key],label=document.createElement('label');label.className='role-item';
+  label.innerHTML=`<input type="checkbox" ${chosenRoles.has(key)?'checked':''}><span class="role-symbol">${r.icon}</span><span><div class="role-name">${r.name}</div><div class="role-desc">${r.team==='lupi'?'Fazione lupi':'Fazione villaggio'}</div></span>`;
+  label.querySelector('input').addEventListener('change',e=>{
+   if(e.target.checked)chosenRoles.add(key);else chosenRoles.delete(key);updateRoleWarning();
+  });
+  p.appendChild(label);
+ });
+ updateRoleWarning();
+}
+function updateRoleWarning(){
+ document.getElementById('roleWarning').textContent=chosenRoles.has('wolf')
+ ?'Ruoli speciali selezionati: '+chosenRoles.size+'. I posti mancanti saranno Contadini.'
+ :'Attenzione: seleziona almeno un Lupo mannaro per iniziare.';
+}
+function randomCode(){return Math.random().toString(36).slice(2,8).toUpperCase();}
+function createRoom(){
+ const name=(document.getElementById('hostName').value.trim()||'Creatore').slice(0,18);
+ if(!chosenRoles.has('wolf')){toast('Seleziona almeno un Lupo mannaro.');return;}
+ room={code:randomCode(),hostId:'p0',players:[{id:'p0',name,alive:true,host:true,role:null,bot:false}],roles:[...chosenRoles],count:targetCount,winCondition:document.getElementById('winCondition').value};
+ renderLobby();showView('room');
+}
+function joinRoom(){
+ const name=(document.getElementById('joinName').value.trim()||'Ospite').slice(0,18);
+ const code=document.getElementById('joinCode').value.trim().toUpperCase();
+ if(!code){toast('Inserisci il codice stanza.');return;}
+ if(!room||room.code!==code){toast('Stanza non trovata: il multiplayer Firebase non è ancora collegato.');return;}
+ if(room.players.length>=room.count){toast('La stanza è piena.');return;}
+ room.players.push({id:'p'+Date.now(),name,alive:true,host:false,role:null,bot:false});
+ renderLobby();showView('room');
+}
+function renderLobby(){
+ document.getElementById('roomCode').textContent=room.code;
+ document.getElementById('playerCount').textContent=`${room.players.length} / ${room.count} giocatori`;
+ const box=document.getElementById('lobbyPlayers');box.innerHTML='';
+ room.players.forEach(p=>{
+  const el=document.createElement('div');el.className='player-card';
+  el.innerHTML=`<div class="avatar">${p.host?'👑':'🧑'}</div><div><div class="player-name">${escapeHTML(p.name)}</div><div class="player-state">${p.host?'Creatore':'Pronto'}</div></div><span class="status-dot"></span>`;
+  box.appendChild(el);
+ });
+ document.getElementById('startBtn').disabled=room.players.length<4;
+ document.getElementById('startBtn').style.opacity=room.players.length<4?'.45':'1';
+}
+function escapeHTML(s){
+ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+async function copyCode(){
+ try{await navigator.clipboard.writeText(room.code);toast('Codice copiato!');}
+ catch(e){toast('Codice stanza: '+room.code);}
+}
+function addDemoPlayers(){
+ if(!room)return;const used=new Set(room.players.map(p=>p.name.toLowerCase()));
+ for(const n of DEMO_NAMES){
+  if(room.players.length>=room.count)break;
+  if(!used.has(n.toLowerCase())){
+   room.players.push({id:'p'+room.players.length+Math.random().toString(16).slice(2,5),name:n,alive:true,host:false,role:null,bot:true});
+   used.add(n.toLowerCase());
+  }
+ }
+ renderLobby();toast('Giocatori demo aggiunti.');
+}
+function leaveRoom(){room=null;game=null;showView('home');}
+function shuffle(a){
+ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+ return a;
+}
+function startGame(){
+ if(!room||room.players.length<4){toast('Servono almeno 4 giocatori.');return;}
+ if(!room.roles.includes('wolf')){toast('Manca il ruolo Lupo mannaro.');return;}
+ const players=room.players.map(p=>({...p,alive:true,role:null}));
+ const roles=[...room.roles];
+ while(roles.length>players.length){const i=roles.findIndex(k=>k!=='wolf');if(i<0)roles.pop();else roles.splice(i,1);}
+ while(roles.length<players.length)roles.push('villager');
+ shuffle(roles);shuffle(players);players.forEach((p,i)=>p.role=roles[i]);
+ const myIndex=players.findIndex(p=>p.id===room.hostId);
+ if(myIndex>0)[players[0],players[myIndex]]=[players[myIndex],players[0]];
+ game={players,round:1,phase:'night',log:[],guarded:null,witchSave:true,witchPoison:true,couple:null,usedMedium:false,votes:{},wolfTarget:null,guardTarget:null,seerTarget:null,witchPoisonTarget:null,hostId:room.hostId,winCondition:room.winCondition};
+ addLog('La partita è iniziata. I ruoli sono stati assegnati.');showView('game');renderGame();
+}
+function me(){return game?.players.find(p=>p.id===game.hostId);}
+function alivePlayers(){return game.players.filter(p=>p.alive);}
+function roleOf(p){return ROLE_DATA[p.role]||ROLE_DATA.villager;}
+function addLog(s){game.log.unshift(s);}
+
+function renderGame(){
+ if(!game)return;
+ const alive=alivePlayers();
+ document.getElementById('roundLabel').textContent=(game.phase==='night'?'Notte ':'Giorno ')+game.round;
+ document.getElementById('gameTitle').textContent=game.phase==='night'?'La notte scende':'Il villaggio si riunisce';
+ document.getElementById('aliveCount').textContent='Vivi: '+alive.length;
+ document.getElementById('phaseTag').textContent=game.phase==='night'?'NOTTE':'GIORNO';
+ document.getElementById('phaseIcon').textContent=game.phase==='night'?'🌒':'☀️';
+ document.getElementById('phaseTitle').textContent=game.phase==='night'?'Tutti chiudono gli occhi':'È il momento di votare';
+ document.getElementById('phaseDescription').textContent=game.phase==='night'
+ ?'Le azioni notturne vengono risolte in automatico in questa demo.'
+ :'Discutete tra voi, poi ogni giocatore vivo esprime un voto segreto. In questa anteprima il creatore simula la votazione.';
+ document.getElementById('gamePlayers').innerHTML=game.players.map(p=>
+  `<div class="vote-result"><span>${p.alive?'🧑':'👻'} ${escapeHTML(p.name)} ${p.id===game.hostId?'<span class="tag gold">TU</span>':''}</span><span class="tag ${p.alive?'green':'red'}">${p.alive?'VIVO':'ELIMINATO'}</span></div>`
+ ).join('');
+ renderPersonal();
+ document.getElementById('log').innerHTML=game.log.slice(0,12).map(s=>`<div class="vote-result"><span>${escapeHTML(s)}</span></div>`).join('');
+ actionsForPhase();
+}
+function renderPersonal(){
+ const p=me(),area=document.getElementById('personalArea');area.innerHTML='';
+ if(!p)return;
+ if(!p.alive){
+  area.innerHTML='<div class="secret-role"><div class="big">👻</div><h2>Sei uno spettatore</h2><p>Sei stato eliminato. Puoi seguire la cronaca fino alla fine, ma non puoi più votare o usare poteri.</p></div>';return;
+ }
+ const r=roleOf(p);
+ area.innerHTML=`<div class="secret-role"><div class="private-tag">Il tuo ruolo segreto</div><div class="big">${r.icon}</div><h2>${r.name}</h2><p>${r.desc}</p><div class="tag ${r.team==='lupi'?'red':'green'}">${r.team==='lupi'?'FAZIONE LUPI':'FAZIONE VILLAGGIO'}</div></div>`;
+ if(game.phase==='night')renderNightOptions(p);
+ else renderVoteOptions(p);
+}
+function addChoice(list,p,action){
+ game.players.filter(x=>x.alive&&x.id!==p.id).forEach(x=>{
+  const b=document.createElement('button');b.className='choice';
+  b.innerHTML=`<div class="avatar">🧑</div><span><strong>${escapeHTML(x.name)}</strong><small>Seleziona giocatore</small></span>`;
+  b.onclick=()=>action(x);list.appendChild(b);
+ });
+}
+function renderNightOptions(p){
+ const area=document.getElementById('personalArea');
+ let text='',field='';
+ if(p.role==='wolf'){text='Scegli la vittima della notte.';field='wolfTarget';}
+ else if(p.role==='seer'){text='Scegli una persona per scoprire se è un lupo.';field='seerTarget';}
+ else if(p.role==='guard'){text='Scegli chi proteggere stanotte.';field='guardTarget';}
+ else if(p.role==='witch'){text='Scegli un bersaglio per il veleno. La demo semplifica le pozioni.';field='witchPoisonTarget';}
+ else if(p.role==='cupid'&&game.round===1){text='Scegli il primo bersaglio del legame. Il secondo sarà casuale.';field='cupid';}
+ else if(p.role==='medium'){
+  const b=document.createElement('button');b.className='btn secondary';b.textContent='Chiedi un indizio';
+  b.onclick=()=>{if(game.usedMedium){toast('Potere già usato.');return;}game.usedMedium=true;const dead=game.players.filter(x=>!x.alive);toast(dead.length?'Indizio: '+dead[Math.floor(Math.random()*dead.length)].name+' è stato eliminato.':'Non ci sono ancora eliminati.');};
+  area.appendChild(b);return;
+ } else {area.insertAdjacentHTML('beforeend','<p class="hint">Non hai un’azione notturna. Attendi il mattino.</p>');return;}
+ area.insertAdjacentHTML('beforeend',`<p class="hint">${text}</p><div class="choice-list" id="nightChoices"></div><div id="privateResult"></div>`);
+ const list=area.querySelector('#nightChoices');
+ addChoice(list,p,x=>{
+  if(field==='cupid'){
+   const other=game.players.find(y=>y.alive&&y.id!==x.id&&y.id!==p.id);
+   game.couple=[x.id,other?.id].filter(Boolean);toast('Legame scelto.');return;
+  }
+  game[field]=x.id;
+  if(field==='seerTarget'){
+   document.getElementById('privateResult').innerHTML=`<div class="notice">Indizio privato: ${escapeHTML(x.name)} ${x.role==='wolf'?'è un Lupo mannaro.':'non risulta un Lupo mannaro.'}</div>`;
+  }else toast('Azione registrata nella demo.');
+  list.querySelectorAll('button').forEach(b=>b.classList.remove('selected'));event?.currentTarget?.classList?.add('selected');
+ });
+}
+function renderVoteOptions(p){
+ const area=document.getElementById('personalArea');
+ area.insertAdjacentHTML('beforeend','<p class="hint">Scegli chi votare. Nella versione online il voto sarà privato sul tuo telefono.</p><div class="choice-list" id="voteChoices"></div>');
+ addChoice(area.querySelector('#voteChoices'),p,x=>{game.votes[p.id]=x.id;toast('Voto registrato nella demo.');renderGame();});
+}
+function actionsForPhase(){
+ const actions=document.getElementById('phaseActions');actions.innerHTML='';
+ const p=me();
+ if(!p||!p.alive){const b=document.createElement('button');b.className='btn secondary';b.textContent='Aggiorna cronaca';b.onclick=renderGame;actions.appendChild(b);return;}
+ if(game.phase==='night'){
+  const b=document.createElement('button');b.className='btn primary';b.textContent='☀️ Risolvi la notte (demo)';b.onclick=resolveNight;actions.appendChild(b);
+ }else{
+  const b=document.createElement('button');b.className='btn primary';b.textContent='🗳️ Chiudi votazione (demo)';b.onclick=resolveVote;actions.appendChild(b);
+  const skip=document.createElement('button');skip.className='btn secondary';skip.textContent='Salta votazione';
+  skip.onclick=()=>{addLog('Il villaggio non ha raggiunto un verdetto.');nextNight();};actions.appendChild(skip);
+ }
+}
+function resolveNight(){
+ if(!game)return;
+ let target=game.players.find(p=>p.id===game.wolfTarget);
+ if(!target||!target.alive||target.role==='wolf')
+  target=game.players.filter(p=>p.alive&&p.role!=='wolf').sort(()=>Math.random()-.5)[0];
+ let victim=target;
+ if(game.guardTarget&&target&&game.guardTarget===target.id){victim=null;addLog('La Guardia ha protetto la vittima.');}
+ if(game.witchPoisonTarget&&game.witchPoison){
+  const poison=game.players.find(p=>p.id===game.witchPoisonTarget&&p.alive);
+  if(poison&&poison.role!=='wolf'){poison.alive=false;addLog('Una persona è stata avvelenata.');game.witchPoison=false;}
+ }
+ if(victim&&victim.alive){
+  victim.alive=false;addLog('Durante la notte è stato eliminato '+victim.name+'.');
+  if(game.couple&&game.couple.includes(victim.id)){
+   const partner=game.players.find(p=>p.id===game.couple.find(id=>id!==victim.id)&&p.alive);
+   if(partner){partner.alive=false;addLog('Il legame fatale ha eliminato anche '+partner.name+'.');}
+  }
+ }else if(!victim)addLog('Il villaggio si sveglia: nessuno è stato eliminato stanotte.');
+ const winner=checkWinner();if(winner){finishGame(winner);return;}
+ game.phase='day';game.votes={};game.wolfTarget=null;game.guardTarget=null;game.seerTarget=null;game.witchPoisonTarget=null;renderGame();
+}
+function resolveVote(){
+ if(!game)return;
+ const alive=alivePlayers(),votes={...game.votes};
+ alive.forEach(p=>{if(!votes[p.id]){const options=alive.filter(x=>x.id!==p.id);if(options.length)votes[p.id]=options[Math.floor(Math.random()*options.length)].id;}});
+ const tally={};Object.values(votes).forEach(id=>tally[id]=(tally[id]||0)+1);
+ const max=Math.max(0,...Object.values(tally)),top=Object.keys(tally).filter(id=>tally[id]===max);
+ if(top.length!==1)addLog('Il voto è finito in parità: nessuno viene eliminato.');
+ else{
+  const victim=game.players.find(p=>p.id===top[0]);
+  if(victim&&victim.alive){
+   victim.alive=false;addLog('Il villaggio ha votato per eliminare '+victim.name+'.');
+   if(victim.role==='hunter'){
+    const options=alivePlayers().filter(p=>p.id!==victim.id);
+    if(options.length){const shot=options[Math.floor(Math.random()*options.length)];shot.alive=false;addLog('Il Cacciatore ha eliminato '+shot.name+'.');}
+   }
+   if(game.couple&&game.couple.includes(victim.id)){
+    const partner=game.players.find(p=>p.id===game.couple.find(id=>id!==victim.id)&&p.alive);
+    if(partner){partner.alive=false;addLog('Il legame fatale ha eliminato anche '+partner.name+'.');}
+   }
+  }
+ }
+ const winner=checkWinner();if(winner){finishGame(winner);return;}nextNight();
+}
+function nextNight(){game.round++;game.phase='night';game.votes={};game.wolfTarget=null;game.guardTarget=null;game.seerTarget=null;game.witchPoisonTarget=null;renderGame();}
+function checkWinner(){
+ const alive=alivePlayers(),wolves=alive.filter(p=>p.role==='wolf').length,others=alive.length-wolves;
+ if(wolves===0)return 'villaggio';
+ if(game.winCondition==='all'&&others===0)return 'lupi';
+ if(game.winCondition==='parity'&&wolves>=others)return 'lupi';
+ return null;
+}
+function finishGame(winner){
+ document.getElementById('winnerTitle').textContent=winner==='lupi'?'I Lupi hanno conquistato il villaggio':'Il villaggio ha smascherato tutti i lupi';
+ document.getElementById('winnerDescription').textContent=winner==='lupi'?'I lupi sono ormai in maggioranza.':'Non è rimasto nessun lupo in vita.';
+ document.getElementById('finalRoles').innerHTML=game.players.map(p=>`<div class="player-card"><div class="avatar">${roleOf(p).icon}</div><div><div class="player-name">${escapeHTML(p.name)}</div><div class="player-state">${roleOf(p).name} · ${p.alive?'Vivo':'Eliminato'}</div></div></div>`).join('');
+ showView('end');
+}
+function newGame(){game=null;room=null;showView('home');}
+renderRolePicker();
+</script>
+</body>
+</html>
