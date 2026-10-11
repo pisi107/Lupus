@@ -11,7 +11,7 @@
 :root {
   --bg: #030305;
   --panel: #0d0d12;
-  --panel-glass: rgba(13, 13, 18, 0.88);
+  --panel-glass: rgba(13, 13, 18, 0.9);
   --border: rgba(255, 255, 255, 0.08);
   --border-gold: rgba(212, 168, 83, 0.3);
   --text: #ede8df;
@@ -33,223 +33,127 @@ body.night-mode {
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 html, body {
-  margin: 0;
-  padding: 0;
-  background: var(--bg);
-  color: var(--text);
+  margin: 0; padding: 0;
+  background: var(--bg); color: var(--text);
   font-family: 'Plus Jakarta Sans', sans-serif;
-  height: 100vh;
-  overflow: hidden;
+  height: 100vh; overflow: hidden;
   transition: background 1s ease;
 }
 
 .app-container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
+  width: 100vw; height: 100vh;
+  display: flex; flex-direction: column; position: relative;
   background-image: 
     radial-gradient(circle at 50% -20%, rgba(130, 20, 40, 0.2) 0%, transparent 60%),
     radial-gradient(circle at 10% 90%, rgba(30, 10, 50, 0.2) 0%, transparent 50%);
 }
 
 .game-hud {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
-  background: rgba(5, 5, 8, 0.6);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
-  z-index: 10;
-  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 24px; background: rgba(5, 5, 8, 0.7);
+  backdrop-filter: blur(16px); border-bottom: 1px solid var(--border);
+  z-index: 10; flex-shrink: 0;
 }
 
-.hud-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
+.hud-brand { display: flex; align-items: center; gap: 12px; }
 .hud-sigil {
-  width: 38px;
-  height: 38px;
-  background: linear-gradient(135deg, var(--red), #4a121d);
-  border-radius: 10px;
-  display: grid;
-  place-items: center;
-  font-size: 18px;
-  box-shadow: 0 0 15px var(--red-glow);
-  border: 1px solid rgba(255,255,255,0.2);
+  width: 38px; height: 38px; background: linear-gradient(135deg, var(--red), #4a121d);
+  border-radius: 10px; display: grid; place-items: center; font-size: 18px;
+  box-shadow: 0 0 15px var(--red-glow); border: 1px solid rgba(255,255,255,0.2);
 }
-
 .hud-title {
-  font-family: 'Cinzel', serif;
-  font-weight: 900;
-  font-size: 16px;
-  letter-spacing: 2px;
+  font-family: 'Cinzel', serif; font-weight: 900; font-size: 16px; letter-spacing: 2px;
   background: linear-gradient(to right, #fff, var(--muted));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
-
 .hud-badge {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid var(--border);
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: var(--gold);
+  background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+  padding: 6px 14px; border-radius: 999px; font-size: 11px; font-weight: 700; color: var(--gold);
 }
 
 .viewport {
-  flex: 1;
-  position: relative;
-  overflow-y: auto;
-  padding: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  flex: 1; position: relative; overflow-y: auto; padding: 20px;
+  display: flex; justify-content: center; align-items: center;
 }
 
 .screen {
-  display: none;
-  width: 100%;
-  max-width: 900px;
-  opacity: 0;
-  transform: scale(0.97);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  display: none; width: 100%; max-width: 850px;
+  opacity: 0; transform: scale(0.97);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
-
-.screen.active {
-  display: flex;
-  flex-direction: column;
-  opacity: 1;
-  transform: scale(1);
-}
+.screen.active { display: flex; flex-direction: column; opacity: 1; transform: scale(1); }
 
 .arcade-card {
-  background: var(--panel-glass);
-  backdrop-filter: blur(24px);
-  border: 1px solid var(--border);
-  border-radius: 28px;
-  padding: clamp(24px, 5vw, 44px);
+  background: var(--panel-glass); backdrop-filter: blur(24px);
+  border: 1px solid var(--border); border-radius: 24px;
+  padding: clamp(20px, 4vw, 36px);
   box-shadow: 0 25px 50px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
-  position: relative;
-  overflow: hidden;
 }
 
-.screen-title {
-  font-family: 'Cinzel', serif;
-  font-size: clamp(26px, 5vw, 42px);
-  font-weight: 900;
-  margin: 0 0 6px;
-}
-
-.screen-subtitle {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.6;
-  margin: 0 0 24px;
-}
+.screen-title { font-family: 'Cinzel', serif; font-size: clamp(24px, 4vw, 38px); font-weight: 900; margin: 0 0 4px; }
+.screen-subtitle { color: var(--muted); font-size: 13px; line-height: 1.6; margin: 0 0 20px; }
 
 .btn-arcade {
-  padding: 14px 24px;
-  border-radius: 14px;
-  font-weight: 800;
-  font-size: 12px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  cursor: pointer;
-  border: 1px solid transparent;
+  padding: 12px 22px; border-radius: 12px; font-weight: 800; font-size: 12px;
+  letter-spacing: 1px; text-transform: uppercase; cursor: pointer; border: 1px solid transparent;
+  transition: all 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
 }
-
 .btn-arcade:hover { transform: translateY(-2px); filter: brightness(1.1); }
-.btn-arcade.primary { background: linear-gradient(135deg, var(--red), #80182c); color: #fff; box-shadow: 0 8px 25px var(--red-glow); border-color: rgba(255,255,255,0.2); }
-.btn-arcade.gold { background: linear-gradient(135deg, var(--gold), #b38222); color: #0b0b0e; box-shadow: 0 8px 25px var(--gold-glow); border-color: rgba(255,255,255,0.3); }
+.btn-arcade.primary { background: linear-gradient(135deg, var(--red), #80182c); color: #fff; box-shadow: 0 6px 20px var(--red-glow); border-color: rgba(255,255,255,0.2); }
+.btn-arcade.gold { background: linear-gradient(135deg, var(--gold), #b38222); color: #0b0b0e; box-shadow: 0 6px 20px var(--gold-glow); border-color: rgba(255,255,255,0.3); }
 .btn-arcade.subtle { background: rgba(255,255,255,0.04); color: var(--muted); border-color: var(--border); }
 .btn-arcade.subtle:hover { color: var(--text); background: rgba(255,255,255,0.08); }
 
-.home-hero { text-align: center; max-width: 600px; margin: auto; padding: 20px 0; }
-.home-sigil-big { font-size: 72px; margin-bottom: 12px; }
-.home-hero h1 { font-family: 'Cinzel', serif; font-size: clamp(38px, 7vw, 64px); font-weight: 900; line-height: 1.05; margin: 0 0 14px; }
-.home-hero h1 span { color: var(--red); text-shadow: 0 0 30px var(--red-glow); }
-.home-hero p { color: var(--muted); font-size: 14px; line-height: 1.7; margin: 0 0 32px; }
-.menu-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.home-hero { text-align: center; max-width: 580px; margin: auto; padding: 10px 0; }
+.home-sigil-big { font-size: 64px; margin-bottom: 10px; }
+.home-hero h1 { font-family: 'Cinzel', serif; font-size: clamp(34px, 6vw, 56px); font-weight: 900; line-height: 1.05; margin: 0 0 12px; }
+.home-hero h1 span { color: var(--red); text-shadow: 0 0 25px var(--red-glow); }
+.home-hero p { color: var(--muted); font-size: 13px; line-height: 1.6; margin: 0 0 28px; }
 
-.input-group { margin-bottom: 18px; }
+.input-group { margin-bottom: 16px; }
 .input-group label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); font-weight: 800; margin-bottom: 6px; }
-.input-group input, .input-group select { width: 100%; background: rgba(4, 4, 7, 0.8); border: 1px solid var(--border); color: var(--text); padding: 14px; border-radius: 12px; outline: none; font-weight: 600; font-size: 13px; }
-.input-group input:focus, .input-group select:focus { border-color: var(--gold); box-shadow: 0 0 15px var(--gold-glow); }
+.input-group input, .input-group select { width: 100%; background: rgba(4, 4, 7, 0.8); border: 1px solid var(--border); color: var(--text); padding: 12px 14px; border-radius: 10px; outline: none; font-weight: 600; font-size: 13px; }
+.input-group input:focus, .input-group select:focus { border-color: var(--gold); box-shadow: 0 0 12px var(--gold-glow); }
 
-.grid-config { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.role-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; max-height: 250px; overflow-y: auto; padding-right: 4px; }
-.role-card-select { background: rgba(5, 5, 8, 0.6); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.grid-config { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.role-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; max-height: 220px; overflow-y: auto; padding-right: 4px; }
+.role-card-select { background: rgba(5, 5, 8, 0.6); border: 1px solid var(--border); border-radius: 10px; padding: 10px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
 .role-card-select input { accent-color: var(--red); width: 16px; height: 16px; }
 
-.split-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 20px; align-items: start; }
-.room-code-display { font-family: 'Cinzel', serif; font-size: clamp(28px, 5vw, 42px); font-weight: 900; color: var(--gold); background: rgba(2, 2, 4, 0.9); border: 1px dashed var(--border-gold); border-radius: 16px; padding: 16px; text-align: center; letter-spacing: 8px; text-shadow: 0 0 20px var(--gold-glow); margin-bottom: 14px; }
-.players-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; max-height: 280px; overflow-y: auto; margin-top: 10px; }
-.player-token { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; }
-.player-token .avatar { width: 32px; height: 32px; background: linear-gradient(135deg, #201018, #0a0a0f); border-radius: 8px; display: grid; place-items: center; font-size: 14px; border: 1px solid var(--border); }
+.split-layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 16px; align-items: start; }
+.room-code-display { font-family: 'Cinzel', serif; font-size: clamp(26px, 4vw, 38px); font-weight: 900; color: var(--gold); background: rgba(2, 2, 4, 0.9); border: 1px dashed var(--border-gold); border-radius: 14px; padding: 14px; text-align: center; letter-spacing: 6px; text-shadow: 0 0 15px var(--gold-glow); margin-bottom: 12px; }
+.players-box { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; max-height: 240px; overflow-y: auto; margin-top: 8px; }
+.player-token { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 10px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; }
+.player-token .avatar { width: 28px; height: 28px; background: linear-gradient(135deg, #201018, #0a0a0f); border-radius: 6px; display: grid; place-items: center; font-size: 13px; border: 1px solid var(--border); }
 
-/* NARRATIVE PHASE ARENA */
 .phase-arena {
   background: linear-gradient(135deg, rgba(22, 10, 18, 0.95), rgba(8, 8, 12, 0.98));
-  border: 1px solid rgba(207, 46, 77, 0.35);
-  border-radius: 22px;
-  padding: 24px;
-  text-align: center;
-  margin-bottom: 16px;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
-  position: relative;
+  border: 1px solid rgba(207, 46, 77, 0.35); border-radius: 18px; padding: 18px; text-align: center; margin-bottom: 14px; box-shadow: 0 12px 30px rgba(0,0,0,0.5); position: relative;
 }
-
 .phase-arena::after {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, transparent, var(--red), transparent);
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent);
 }
-
 .story-box {
-  background: rgba(4, 4, 8, 0.8);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 18px;
-  font-size: 13px;
-  line-height: 1.7;
-  color: #dfd9cc;
-  text-align: left;
-  margin-bottom: 14px;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.5);
+  background: rgba(4, 4, 8, 0.85); border: 1px solid var(--border); border-radius: 12px; padding: 14px; font-size: 12px; line-height: 1.6; color: #dfd9cc; text-align: left; margin-bottom: 10px;
 }
-
 .secret-role-card {
   background: linear-gradient(135deg, rgba(30, 12, 20, 0.9), rgba(10, 10, 15, 0.95));
-  border: 1px solid rgba(243, 186, 79, 0.4);
-  border-radius: 20px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  border: 1px solid rgba(243, 186, 79, 0.4); border-radius: 16px; padding: 16px; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.4);
 }
-
-.choices-grid { display: grid; gap: 8px; margin-top: 10px; max-height: 200px; overflow-y: auto; }
-.choice-btn { background: rgba(6, 6, 10, 0.8); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; color: var(--text); display: flex; align-items: center; gap: 12px; cursor: pointer; text-align: left; transition: all 0.2s; }
+.choices-grid { display: grid; gap: 6px; margin-top: 8px; max-height: 160px; overflow-y: auto; }
+.choice-btn {
+  background: rgba(6, 6, 10, 0.8); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; color: var(--text); display: flex; align-items: center; gap: 10px; cursor: pointer; text-align: left; transition: all 0.2s; font-size: 12px;
+}
 .choice-btn:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
-.choice-btn.selected { border-color: var(--red); background: rgba(207, 46, 77, 0.2); box-shadow: 0 0 15px var(--red-glow); }
+.choice-btn.selected { border-color: var(--red); background: rgba(207, 46, 77, 0.25); box-shadow: 0 0 12px var(--red-glow); }
 
-.status-tag { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: 1px; }
+.status-tag { display: inline-block; padding: 3px 8px; border-radius: 999px; font-size: 9px; font-weight: 800; letter-spacing: 1px; }
 .status-tag.alive { background: rgba(45, 212, 191, 0.15); color: #2dd4bf; border: 1px solid rgba(45, 212, 191, 0.3); }
 .status-tag.dead { background: rgba(207, 46, 77, 0.15); color: #ffb3bf; border: 1px solid rgba(207, 46, 77, 0.3); }
 
-.arcade-toast { position: fixed; top: 20px; left: 50%; transform: translate(-50%, -40px); background: var(--gold); color: #121008; padding: 12px 22px; border-radius: 12px; font-weight: 800; font-size: 12px; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 999; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+.arcade-toast {
+  position: fixed; top: 16px; left: 50%; transform: translate(-50%, -40px); background: var(--gold); color: #121008; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 12px; opacity: 0; pointer-events: none; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 999; box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+}
 .arcade-toast.show { opacity: 1; transform: translate(-50%, 0); }
 
 @media(max-width: 768px) {
@@ -267,7 +171,7 @@ html, body {
       <div class="hud-sigil">☾</div>
       <div class="hud-title">LUPUS</div>
     </div>
-    <div id="hudInfo" class="hud-badge">MENU PRINCIPALE</div>
+    <div id="hudInfo" class="hud-badge">MENU</div>
   </header>
 
   <main class="viewport">
@@ -276,10 +180,10 @@ html, body {
     <section id="screen-home" class="screen active">
       <div class="home-hero">
         <div class="home-sigil-big">🐺</div>
-        <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:800;margin-bottom:6px">Narrativa e Mistero</div>
+        <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:800;margin-bottom:6px">Edizione Prototipo Guidata</div>
         <h1>Il villaggio<br><span>dorme</span></h1>
-        <p>Vivi una narrazione dinamica in cui ogni notte porta tensione e ogni giorno si decide al tavolo dei sospetti. Nessun narratore umano, solo l'app a guidare l'orrore e la verità.</p>
-        <div class="menu-actions">
+        <p>Crea la partita, scegli il tuo ruolo d'impatto preferito e guida o smaschera il branco nella nuova modalità interattiva ottimizzata.</p>
+        <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
           <button class="btn-arcade primary" onclick="gotoScreen('screen-create')">✦ Crea Partita</button>
           <button class="btn-arcade subtle" onclick="gotoScreen('screen-join')">Unisciti con Codice</button>
         </div>
@@ -288,10 +192,10 @@ html, body {
 
     <!-- CREATE -->
     <section id="screen-create" class="screen">
-      <div class="arcade-card" style="width:100%;max-width:800px;">
-        <button class="btn-arcade subtle" onclick="gotoScreen('screen-home')" style="padding:6px 12px;font-size:10px;margin-bottom:16px">← Indietro</button>
+      <div class="arcade-card" style="width:100%;max-width:750px;">
+        <button class="btn-arcade subtle" onclick="gotoScreen('screen-home')" style="padding:6px 10px;font-size:10px;margin-bottom:14px">← Indietro</button>
         <h2 class="screen-title">Configura Villaggio</h2>
-        <p class="screen-subtitle">Scegli chi sei e quali forze occulte si aggireranno tra le case.</p>
+        <p class="screen-subtitle">Imposta il tuo nome e scegli quale ruolo interpretare tu personalmente nella partita demo.</p>
 
         <div class="grid-config">
           <div>
@@ -300,32 +204,35 @@ html, body {
               <input id="hostName" maxlength="16" placeholder="Es. Gio">
             </div>
             <div class="input-group">
-              <label>Partecipanti massimi</label>
-              <div style="display:flex;align-items:center;gap:12px;background:rgba(4,4,7,0.8);border:1px solid var(--border);padding:8px 14px;border-radius:12px;">
-                <button class="btn-arcade subtle" onclick="changeCount(-1)" style="padding:6px 12px">−</button>
-                <strong id="countDisplay" style="font-family:'Cinzel',serif;font-size:18px;flex:1;text-align:center">8</strong>
-                <button class="btn-arcade subtle" onclick="changeCount(1)" style="padding:6px 12px">+</button>
-              </div>
+              <label>Il tuo ruolo desiderato</label>
+              <select id="forcedRole">
+                <option value="wolf">🐺 Lupo mannaro (Attacca nel buio)</option>
+                <option value="seer">🔮 Veggente (Indaga sui sospetti)</option>
+                <option value="guard">🛡️ Guardia (Protegge le vittime)</option>
+                <option value="hunter">🏹 Cacciatore (Trascina un nemico morendo)</option>
+                <option value="random">🎲 Casuale (Tratti misti)</option>
+              </select>
             </div>
             <div class="input-group">
-              <label>Vittoria dei Lupi</label>
-              <select id="winCondition">
-                <option value="parity">Parità numerica con i villagieri vivi</option>
-                <option value="all">Eliminazione totale dei contadini</option>
-              </select>
+              <label>Partecipanti totali</label>
+              <div style="display:flex;align-items:center;gap:10px;background:rgba(4,4,7,0.8);border:1px solid var(--border);padding:6px 12px;border-radius:10px;">
+                <button class="btn-arcade subtle" onclick="changeCount(-1)" style="padding:4px 10px">−</button>
+                <strong id="countDisplay" style="font-family:'Cinzel',serif;font-size:16px;flex:1;text-align:center">6</strong>
+                <button class="btn-arcade subtle" onclick="changeCount(1)" style="padding:4px 10px">+</button>
+              </div>
             </div>
           </div>
 
           <div>
             <div class="input-group">
-              <label>Ruoli speciali attivi</label>
+              <label>Ruoli attivi nella partita</label>
               <div id="rolePicker" class="role-grid"></div>
             </div>
             <div id="roleWarning" style="font-size:10px;color:var(--gold);margin-top:6px"></div>
           </div>
         </div>
 
-        <div style="margin-top:20px;text-align:right">
+        <div style="margin-top:16px;text-align:right">
           <button class="btn-arcade gold" onclick="createRoom()">Crea Stanza →</button>
         </div>
       </div>
@@ -333,10 +240,10 @@ html, body {
 
     <!-- JOIN -->
     <section id="screen-join" class="screen">
-      <div class="arcade-card" style="width:100%;max-width:460px;text-align:center">
-        <button class="btn-arcade subtle" onclick="gotoScreen('screen-home')" style="padding:6px 12px;font-size:10px;margin-bottom:16px;margin-right:auto">← Indietro</button>
+      <div class="arcade-card" style="width:100%;max-width:440px;text-align:center">
+        <button class="btn-arcade subtle" onclick="gotoScreen('screen-home')" style="padding:6px 10px;font-size:10px;margin-bottom:14px;margin-right:auto">← Indietro</button>
         <h2 class="screen-title">Unisciti</h2>
-        <p class="screen-subtitle">Inserisci il codice comunicato dall'organizzatore.</p>
+        <p class="screen-subtitle">Inserisci il codice della stanza.</p>
 
         <div class="input-group" style="text-align:left">
           <label>Il tuo nome</label>
@@ -346,39 +253,39 @@ html, body {
           <label>Codice Stanza</label>
           <input id="joinCode" maxlength="6" placeholder="ABC123" style="text-transform:uppercase;letter-spacing:4px;font-family:'Cinzel',serif">
         </div>
-        <button class="btn-arcade primary" onclick="joinRoom()" style="width:100%;margin-top:8px">Entra nella Lobby →</button>
+        <button class="btn-arcade primary" onclick="joinRoom()" style="width:100%;margin-top:6px">Entra nella Lobby →</button>
       </div>
     </section>
 
     <!-- ROOM -->
     <section id="screen-room" class="screen">
       <div class="arcade-card" style="width:100%;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
           <h2 class="screen-title" style="margin:0">Sala d'Attesa</h2>
-          <button class="btn-arcade subtle" onclick="leaveRoom()" style="padding:6px 12px;font-size:10px">Esci</button>
+          <button class="btn-arcade subtle" onclick="leaveRoom()" style="padding:6px 10px;font-size:10px">Esci</button>
         </div>
 
         <div class="split-layout">
           <div>
-            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px">Codice d'invito</div>
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:4px">Codice d'invito</div>
             <div id="roomCode" class="room-code-display">------</div>
-            <div style="display:flex;gap:8px;margin-bottom:16px">
+            <div style="display:flex;gap:8px;margin-bottom:14px">
               <button class="btn-arcade subtle" onclick="copyCode()" style="flex:1">▣ Copia Codice</button>
-              <span id="hostBadge" class="btn-arcade gold" style="cursor:default;pointer-events:none">CREATORE</span>
+              <span class="btn-arcade gold" style="cursor:default;pointer-events:none">HOST</span>
             </div>
             <div style="font-size:11px;color:var(--muted);line-height:1.5">
-              💡 Aggiungi partecipanti simulati se sei da solo per testare l'intera dinamica di gioco.
+              💡 Clicca su "+ Bot" per popolare la stanza con altri abitanti prima di iniziare la partita.
             </div>
           </div>
 
           <div>
             <div style="display:flex;justify-content:space-between;align-items:center">
-              <span style="font-family:'Cinzel',serif;font-weight:700;font-size:13px">Partecipanti Pronti</span>
-              <span id="playerCount" class="status-tag alive">1 / 8</span>
+              <span style="font-family:'Cinzel',serif;font-weight:700;font-size:12px">Abitanti Connessi</span>
+              <span id="playerCount" class="status-tag alive">1 / 6</span>
             </div>
             <div id="lobbyPlayers" class="players-box"></div>
-            <div style="display:flex;gap:8px;margin-top:16px">
-              <button class="btn-arcade primary" id="startBtn" onclick="startGame()" style="flex:1">Inizia Partita</button>
+            <div style="display:flex;gap:8px;margin-top:14px">
+              <button class="btn-arcade primary" id="startBtn" onclick="startGame()" style="flex:1">Avvia Partita</button>
               <button class="btn-arcade subtle" onclick="addDemoPlayers()">+ Bot</button>
             </div>
           </div>
@@ -389,53 +296,53 @@ html, body {
     <!-- GAMEPLAY -->
     <section id="screen-game" class="screen">
       <div style="width:100%;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
           <div>
             <div id="roundLabel" style="font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;font-weight:800">Giorno 1</div>
-            <h2 id="gameTitle" style="font-family:'Cinzel',serif;font-size:20px;margin:2px 0 0">Notte Calata</h2>
+            <h2 id="gameTitle" style="font-family:'Cinzel',serif;font-size:18px;margin:2px 0 0">Notte</h2>
           </div>
-          <span id="aliveCount" class="status-tag alive">Vivi: 8</span>
+          <span id="aliveCount" class="status-tag alive">Vivi: 6</span>
         </div>
 
         <div class="phase-arena">
-          <div id="phaseIcon" style="font-size:36px;margin-bottom:4px">🌒</div>
-          <h2 id="phaseTitle" style="font-family:'Cinzel',serif;font-size:22px;margin:2px 0 6px">Le tenebre avvolgono il villaggio</h2>
-          <div id="narrativeStory" class="story-box">In attesa dell'azione dei ruoli segreti...</div>
+          <div id="phaseIcon" style="font-size:32px;margin-bottom:2px">🌒</div>
+          <h2 id="phaseTitle" style="font-family:'Cinzel',serif;font-size:20px;margin:2px 0 4px">Fase Notturna</h2>
+          <div id="narrativeStory" class="story-box">In attesa delle tue decisioni...</div>
         </div>
 
         <div class="split-layout">
           <div>
-            <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;font-weight:800">✦ Dossier e Azione Segreta</div>
+            <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;font-weight:800">✦ Il Tuo Ruolo & Azione</div>
             <div id="personalArea"></div>
           </div>
 
           <div>
-            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;font-weight:800">Registro Abitanti</div>
-            <div id="gamePlayers" class="players-box" style="max-height:180px"></div>
-            <div id="phaseActions" style="margin-top:14px;display:flex;gap:8px"></div>
+            <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;font-weight:800">Stato Abitanti</div>
+            <div id="gamePlayers" class="players-box" style="max-height:160px"></div>
+            <div id="phaseActions" style="margin-top:12px;display:flex;gap:8px"></div>
           </div>
         </div>
 
-        <div class="arcade-card" style="margin-top:16px;padding:14px">
-          <div style="font-family:'Cinzel',serif;font-weight:700;font-size:12px;margin-bottom:6px">Cronaca della Comunità</div>
-          <div id="log" style="max-height:90px;overflow-y:auto;font-size:11px;color:var(--muted);display:grid;gap:4px"></div>
+        <div class="arcade-card" style="margin-top:14px;padding:12px">
+          <div style="font-family:'Cinzel',serif;font-weight:700;font-size:11px;margin-bottom:4px">Cronaca</div>
+          <div id="log" style="max-height:80px;overflow-y:auto;font-size:11px;color:var(--muted);display:grid;gap:3px"></div>
         </div>
       </div>
     </section>
 
     <!-- END -->
     <section id="screen-end" class="screen">
-      <div class="arcade-card" style="width:100%;max-width:650px;text-align:center">
-        <div style="font-size:44px;margin-bottom:8px">🏆</div>
-        <h2 id="winnerTitle" class="screen-title" style="font-size:28px">Il Villaggio ha Trionfato</h2>
+      <div class="arcade-card" style="width:100%;max-width:600px;text-align:center">
+        <div style="font-size:40px;margin-bottom:6px">🏆</div>
+        <h2 id="winnerTitle" class="screen-title" style="font-size:26px">Fine Partita</h2>
         <p id="winnerDescription" class="screen-subtitle"></p>
         
-        <div style="font-family:'Cinzel',serif;font-weight:700;font-size:13px;text-align:left;margin:16px 0 8px">Verità Rivelate:</div>
-        <div id="finalRoles" class="players-box" style="max-height:200px;text-align:left"></div>
+        <div style="font-family:'Cinzel',serif;font-weight:700;font-size:12px;text-align:left;margin:14px 0 6px">Identità Svelate:</div>
+        <div id="finalRoles" class="players-box" style="max-height:180px;text-align:left"></div>
 
-        <div style="margin-top:22px;display:flex;justify-content:center;gap:10px">
+        <div style="margin-top:18px;display:flex;justify-content:center;gap:8px">
           <button class="btn-arcade primary" onclick="newGame()">Nuova Partita</button>
-          <button class="btn-arcade subtle" onclick="gotoScreen('screen-home')">Menu Principale</button>
+          <button class="btn-arcade subtle" onclick="gotoScreen('screen-home')">Menu</button>
         </div>
       </div>
     </section>
@@ -447,35 +354,32 @@ html, body {
 
 <script>
 const ROLE_DATA={
- wolf:{name:'Lupo mannaro',icon:'🐺',team:'lupi',desc:'Scegli ogni notte un abitante da sbranare nel sonno.'},
- seer:{name:'Veggente',icon:'🔮',team:'villaggio',desc:'Indaga nel buio per scoprire chi è un lupo travestito.'},
- guard:{name:'Guardia',icon:'🛡️',team:'villaggio',desc:'Scegli una persona da proteggere dalle grinfie dei lupi.'},
- witch:{name:'Strega',icon:'🧪',team:'villaggio',desc:'Possiedi pozioni potenti per alterare il destino.'},
- hunter:{name:'Cacciatore',icon:'🏹',team:'villaggio',desc:'Se vieni condannato, puoi portare un altro con te.'},
- cupid:{name:'Cupido',icon:'💘',team:'villaggio',desc:'Lega due anime nel destino comune.'},
- medium:{name:'Medium',icon:'🕯️',team:'villaggio',desc:'Interroga le presenze spettrali dei caduti.'},
- villager:{name:'Contadino',icon:'🌾',team:'villaggio',desc:'Analizza le prove, discuta e vota al rogo.'}
+ wolf:{name:'Lupo mannaro',icon:'🐺',team:'lupi',desc:'Ogni notte scegli un abitante da eliminare furtivamente.'},
+ seer:{name:'Veggente',icon:'🔮',team:'villaggio',desc:'Scrutando nel buio puoi scoprire chi è segretamente un lupo.'},
+ guard:{name:'Guardia',icon:'🛡️',team:'villaggio',desc:'Proteggi ogni notte un abitante dagli artigli dei lupi.'},
+ hunter:{name:'Cacciatore',icon:'🏹',team:'villaggio',desc:'Se vieni eliminato, porti con te un ultimo bersaglio.'},
+ villager:{name:'Contadino',icon:'🌾',team:'villaggio',desc:'Osserva i sospetti e vota al rogo per ripulire il villaggio.'}
 };
 
-const OPTIONAL_ROLES=['wolf','seer','guard','witch','hunter','cupid','medium'];
-let chosenRoles=new Set(['wolf','seer','guard']);
-let targetCount=8,room=null,game=null;
-const DEMO_NAMES=['Marta','Luca','Sofia','Ale','Nico','Emma','Tommi','Vale','Fede','Chiara','Andre','Dani'];
+const OPTIONAL_ROLES=['wolf','seer','guard','hunter'];
+let chosenRoles=new Set(['wolf','seer','guard','hunter']);
+let targetCount=6,room=null,game=null;
+const DEMO_NAMES=['Marta','Luca','Sofia','Ale','Nico','Emma','Tommi','Vale'];
 
 function gotoScreen(screenId){
  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
  document.getElementById(screenId).classList.add('active');
- const titles={'screen-home':'MENU PRINCIPALE','screen-create':'CREAZIONE','screen-join':'ACCESSO','screen-room':'LOBBY','screen-game':'FAZIONE DI GIOCO','screen-end':'EPILOGO'};
+ const titles={'screen-home':'MENU','screen-create':'CREAZIONE','screen-join':'ACCESSO','screen-room':'LOBBY','screen-game':'PARTITA','screen-end':'EPILOGO'};
  document.getElementById('hudInfo').textContent=titles[screenId]||'LUPUS';
 }
 
 function showToast(msg){
  const t=document.getElementById('arcadeToast');t.textContent=msg;t.classList.add('show');
- clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
+ clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),2200);
 }
 
 function changeCount(d){
- targetCount=Math.max(4,Math.min(99,targetCount+d));
+ targetCount=Math.max(4,Math.min(12,targetCount+d));
  document.getElementById('countDisplay').textContent=targetCount;updateRoleWarning();
 }
 
@@ -483,7 +387,7 @@ function renderRolePicker(){
  const p=document.getElementById('rolePicker');p.innerHTML='';
  OPTIONAL_ROLES.forEach(key=>{
   const r=ROLE_DATA[key],label=document.createElement('label');label.className='role-card-select';
-  label.innerHTML=`<input type="checkbox" ${chosenRoles.has(key)?'checked':''}><span style="font-size:18px">${r.icon}</span><div><div style="font-size:11px;font-weight:700">${r.name}</div><div style="font-size:9px;color:var(--muted)">${r.team==='lupi'?'Lupi':'Villaggio'}</div></div>`;
+  label.innerHTML=`<input type="checkbox" ${chosenRoles.has(key)?'checked':''}><span style="font-size:16px">${r.icon}</span><div><div style="font-size:11px;font-weight:700">${r.name}</div></div>`;
   label.querySelector('input').addEventListener('change',e=>{
    if(e.target.checked)chosenRoles.add(key);else chosenRoles.delete(key);updateRoleWarning();
   });
@@ -494,8 +398,8 @@ function renderRolePicker(){
 
 function updateRoleWarning(){
  document.getElementById('roleWarning').textContent=chosenRoles.has('wolf')
- ?`Ruoli attivi: ${chosenRoles.size}. Restanti posti riempiti da Contadini.`
- :`⚠️ Seleziona almeno un Lupo mannaro.`;
+ ?`Ruoli attivi: ${chosenRoles.size}.`
+ :`⚠️ Seleziona almeno un Lupo.`;
 }
 
 function randomCode(){return Math.random().toString(36).slice(2,8).toUpperCase();}
@@ -503,7 +407,7 @@ function randomCode(){return Math.random().toString(36).slice(2,8).toUpperCase()
 function createRoom(){
  const name=(document.getElementById('hostName').value.trim()||'Giocatore').slice(0,16);
  if(!chosenRoles.has('wolf')){showToast('Inserisci almeno un Lupo.');return;}
- room={code:randomCode(),hostId:'p0',players:[{id:'p0',name,alive:true,host:true,role:null,bot:false}],roles:[...chosenRoles],count:targetCount,winCondition:document.getElementById('winCondition').value};
+ room={code:randomCode(),hostId:'p0',players:[{id:'p0',name,alive:true,host:true,role:null,bot:false}],roles:[...chosenRoles],count:targetCount,winCondition:'parity'};
  renderLobby();gotoScreen('screen-room');
 }
 
@@ -526,8 +430,8 @@ function renderLobby(){
   el.innerHTML=`<div class="avatar">${p.host?'👑':'👤'}</div><div style="overflow:hidden"><div style="font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHTML(p.name)}</div><div style="font-size:9px;color:var(--muted)">${p.host?'Host':'Pronto'}</div></div>`;
   box.appendChild(el);
  });
- document.getElementById('startBtn').disabled=room.players.length<4;
- document.getElementById('startBtn').style.opacity=room.players.length<4?'.4':'1';
+ document.getElementById('startBtn').disabled=room.players.length<3;
+ document.getElementById('startBtn').style.opacity=room.players.length<3?'.4':'1';
 }
 
 function escapeHTML(s){
@@ -559,16 +463,32 @@ function shuffle(a){
 }
 
 function startGame(){
- if(!room||room.players.length<4){showToast('Servono almeno 4 giocatori.');return;}
+ if(!room||room.players.length<3){showToast('Servono almeno 3 giocatori.');return;}
  const players=room.players.map(p=>({...p,alive:true,role:null}));
- const roles=[...room.roles];
- while(roles.length>players.length){const i=roles.findIndex(k=>k!=='wolf');if(i<0)roles.pop();else roles.splice(i,1);}
- while(roles.length<players.length)roles.push('villager');
- shuffle(roles);shuffle(players);players.forEach((p,i)=>p.role=roles[i]);
+ 
+ // Assegnazione forzata del ruolo scelto al creatore (tu) per garantirti il controllo
+ const forced=document.getElementById('forcedRole').value;
+ const mePlayer=players.find(p=>p.id===room.hostId);
+ if(forced!=='random'&&chosenRoles.has(forced)){
+  mePlayer.role=forced;
+ }else{
+  mePlayer.role='wolf';
+ }
+
+ // Assegna i ruoli agli altri giocatori bot
+ const remainingRoles=[...room.roles].filter(r=>r!==mePlayer.role);
+ players.forEach(p=>{
+  if(p.id!==room.hostId){
+   p.role=remainingRoles.length>0?remainingRoles.shift():'villager';
+  }
+ });
+
+ shuffle(players);
  const myIndex=players.findIndex(p=>p.id===room.hostId);
  if(myIndex>0)[players[0],players[myIndex]]=[players[myIndex],players[0]];
- game={players,round:1,phase:'night',log:[],narrative:'Il villaggio si addormenta avvolto da una fitta nebbia. Le case si serrano mentre il branco inizia a muoversi furtivo nell’ombra...',usedMedium:false,votes:{},wolfTarget:null,guardTarget:null,seerTarget:null,witchPoisonTarget:null,hostId:room.hostId,winCondition:room.winCondition};
- addLog('La congiura ha inizio. I ruoli segreti sono stati distribuiti.');gotoScreen('screen-game');renderGame();
+
+ game={players,round:1,phase:'night',log:[],narrative:'Il villaggio si addormenta. Scegli con attenzione la tua mossa strategica prima che sorga l’alba.',votes:{},wolfTarget:null,guardTarget:null,seerTarget:null,hostId:room.hostId};
+ addLog('Partita avviata. Ruoli assegnati.');gotoScreen('screen-game');renderGame();
 }
 
 function me(){return game?.players.find(p=>p.id===game.hostId);}
@@ -585,24 +505,24 @@ function renderGame(){
  else document.body.classList.remove('night-mode');
 
  document.getElementById('roundLabel').textContent=(isNight?'Notte ':'Giorno ')+game.round;
- document.getElementById('gameTitle').textContent=isNight?'Le tenebre incombono':'Assemblea del Villaggio';
+ document.getElementById('gameTitle').textContent=isNight?'Fase Oscura':'Assemblea Pubblica';
  document.getElementById('aliveCount').textContent='Vivi: '+alive.length;
  document.getElementById('phaseIcon').textContent=isNight?'🌒':'☀️';
- document.getElementById('phaseTitle').textContent=isNight?'Fase Notturna — Azioni Segrete':'Fase Diurna — Discussione e Rogo';
+ document.getElementById('phaseTitle').textContent=isNight?'Il Branco si Muove':'Discussione e Rogo';
  document.getElementById('narrativeStory').textContent=game.narrative;
 
  document.getElementById('gamePlayers').innerHTML=game.players.map(p=>
   `<div class="player-token" style="opacity:${p.alive?1:0.4}">
     <div class="avatar">${p.alive?'👤':'👻'}</div>
     <div style="overflow:hidden;flex:1">
-      <div style="font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHTML(p.name)} ${p.id===game.hostId?'<span style="color:var(--gold)">★</span>':''}</div>
-      <div style="font-size:9px;color:var(--muted)">${p.alive?'Abitante vivo':'Eliminato'}</div>
+      <div style="font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHTML(p.name)} ${p.id===game.hostId?'<span style="color:var(--gold)">★ (Tu)</span>':''}</div>
+      <div style="font-size:9px;color:var(--muted)">${p.alive?'Vivo':'Eliminato'}</div>
     </div>
   </div>`
  ).join('');
 
  renderPersonal();
- document.getElementById('log').innerHTML=game.log.slice(0,6).map(s=>`<div>• ${escapeHTML(s)}</div>`).join('');
+ document.getElementById('log').innerHTML=game.log.slice(0,5).map(s=>`<div>• ${escapeHTML(s)}</div>`).join('');
  renderActions();
 }
 
@@ -610,14 +530,14 @@ function renderPersonal(){
  const p=me(),area=document.getElementById('personalArea');area.innerHTML='';
  if(!p)return;
  if(!p.alive){
-  area.innerHTML='<div class="secret-role-card"><div style="font-size:32px">👻</div><h3 style="font-family:\'Cinzel\',serif;margin:4px 0">Spettatore</h3><p style="font-size:11px;color:var(--muted);margin:0">Sei caduto in battaglia. Osserva l’epilogo dal silenzio dell’aldilà.</p></div>';return;
+  area.innerHTML='<div class="secret-role-card"><div style="font-size:28px">👻</div><h3 style="font-family:\'Cinzel\',serif;margin:4px 0">Spettatore</h3><p style="font-size:11px;color:var(--muted);margin:0">Sei stato eliminato. Assisti all’epilogo dal regno dei defunti.</p></div>';return;
  }
  const r=roleOf(p);
  area.innerHTML=`<div class="secret-role-card">
-   <div style="font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:800;margin-bottom:2px">Identità Segreta</div>
-   <div style="font-size:36px;margin:4px 0">${r.icon}</div>
-   <h3 style="font-family:'Cinzel',serif;font-size:18px;margin:2px 0">${r.name}</h3>
-   <p style="font-size:11px;color:var(--muted);margin:0 0 8px">${r.desc}</p>
+   <div style="font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--gold);font-weight:800;margin-bottom:2px">Il tuo ruolo segreto</div>
+   <div style="font-size:32px;margin:3px 0">${r.icon}</div>
+   <h3 style="font-family:'Cinzel',serif;font-size:16px;margin:2px 0">${r.name}</h3>
+   <p style="font-size:11px;color:var(--muted);margin:0 0 6px">${r.desc}</p>
    <span class="status-tag ${r.team==='lupi'?'dead':'alive'}">${r.team==='lupi'?'Fazione Lupi':'Fazione Villaggio'}</span>
  </div>`;
 
@@ -628,7 +548,7 @@ function renderPersonal(){
 function addChoicesList(container,p,action){
  game.players.filter(x=>x.alive&&x.id!==p.id).forEach(x=>{
   const b=document.createElement('button');b.className='choice-btn';
-  b.innerHTML=`<div class="avatar" style="width:26px;height:26px;font-size:12px">👤</div><div style="flex:1"><div style="font-size:11px;font-weight:700">${escapeHTML(x.name)}</div><div style="font-size:9px;color:var(--muted)">Seleziona bersaglio</div></div>`;
+  b.innerHTML=`<div class="avatar" style="width:24px;height:24px;font-size:11px">👤</div><div style="flex:1"><div style="font-size:11px;font-weight:700">${escapeHTML(x.name)}</div><div style="font-size:9px;color:var(--muted)">Seleziona obiettivo</div></div>`;
   b.onclick=()=>action(x,b);container.appendChild(b);
  });
 }
@@ -636,31 +556,26 @@ function addChoicesList(container,p,action){
 function renderNightOpts(p){
  const area=document.getElementById('personalArea');
  let text='',field='';
- if(p.role==='wolf'){text='Scegli la vittima del branco per questa notte:';field='wolfTarget';}
- else if(p.role==='seer'){text='Scegli un abitante da scrutare nel profondo:';field='seerTarget';}
- else if(p.role==='guard'){text='Scegli chi proteggere dietro le porte sbarrate:';field='guardTarget';}
- else if(p.role==='witch'){text='Scegli un bersaglio per il veleno mortale:';field='witchPoisonTarget';}
- else if(p.role==='medium'){
-  const b=document.createElement('button');b.className='btn-arcade subtle';b.textContent='🕯️ Interroga gli spiriti';
-  b.onclick=()=>{if(game.usedMedium){showToast('Già interrogati.');return;}game.usedMedium=true;const dead=game.players.filter(x=>!x.alive);const msg=dead.length?'Spiriti dicono: '+dead[Math.floor(Math.random()*dead.length)].name+' ha lasciato rimpianti.':'Nessun trapassato recente.';game.narrative=msg;renderGame();};
-  area.appendChild(b);return;
- } else {area.insertAdjacentHTML('beforeend','<div style="font-size:11px;color:var(--muted);margin-top:8px">Nessuna azione notturna richiesta. Dormi protetto dal silenzio.</div>');return;}
+ if(p.role==='wolf'){text='Scegli chi sbranare stanotte:';field='wolfTarget';}
+ else if(p.role==='seer'){text='Scegli chi scrutare nel buio:';field='seerTarget';}
+ else if(p.role==='guard'){text='Scegli chi proteggere stanotte:';field='guardTarget';}
+ else {area.insertAdjacentHTML('beforeend','<div style="font-size:11px;color:var(--muted);margin-top:6px">Non possiedi poteri notturni. Attendi l’alba in silenzio.</div>');return;}
 
  area.insertAdjacentHTML('beforeend',`<div style="font-size:11px;color:var(--muted);margin:8px 0 4px">${text}</div><div id="nightChoices" class="choices-grid"></div><div id="privateResult"></div>`);
  addChoicesList(area.querySelector('#nightChoices'),p,(x,btn)=>{
   game[field]=x.id;
   if(field==='seerTarget'){
-   document.getElementById('privateResult').innerHTML=`<div style="margin-top:8px;font-size:11px;background:rgba(255,255,255,0.04);padding:8px;border-radius:8px">🔮 Visione: ${escapeHTML(x.name)} ${x.role==='wolf'?'<strong>è un Lupo mannaro!</strong>':'non fa parte dei lupi.'}</div>`;
-  }else showToast('Azione registrata.');
+   document.getElementById('privateResult').innerHTML=`<div style="margin-top:6px;font-size:11px;background:rgba(255,255,255,0.05);padding:6px;border-radius:6px">🔮 Esito visione: ${escapeHTML(x.name)} ${x.role==='wolf'?'<strong>è un Lupo!</strong>':'non è un lupo.'}</div>`;
+  }else showToast('Bersaglio salvato.');
   area.querySelectorAll('.choice-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');
  });
 }
 
 function renderVoteOpts(p){
  const area=document.getElementById('personalArea');
- area.insertAdjacentHTML('beforeend','<div style="font-size:11px;color:var(--muted);margin:8px 0 4px">Esprimi il tuo voto d’accusa per il rogo:</div><div id="voteChoices" class="choices-grid"></div>');
+ area.insertAdjacentHTML('beforeend','<div style="font-size:11px;color:var(--muted);margin:8px 0 4px">Vota il sospetto da mandare al rogo:</div><div id="voteChoices" class="choices-grid"></div>');
  addChoicesList(area.querySelector('#voteChoices'),p,(x,btn)=>{
-  game.votes[p.id]=x.id;showToast('Voto di accusa registrato.');renderGame();
+  game.votes[p.id]=x.id;showToast('Voto registrato.');renderGame();
  });
 }
 
@@ -673,34 +588,35 @@ function renderActions(){
  if(game.phase==='night'){
   const b=document.createElement('button');b.className='btn-arcade primary';b.style.width='100%';b.textContent='☀️ Risolvi la Notte →';b.onclick=resolveNight;act.appendChild(b);
  }else{
-  const b=document.createElement('button');b.className='btn-arcade primary';b.style.flex='1';b.textContent='🔥 Emetti Verdetto e Rogo →';b.onclick=resolveVote;act.appendChild(b);
-  const s=document.createElement('button');s.className='btn-arcade subtle';s.textContent='Assolvi tutti';s.onclick=()=>{game.narrative='Il villaggio non ha trovato prove sufficienti: nessuno viene condannato al rogo oggi.';addLog('Nessun condannato al rogo.');nextNight();};act.appendChild(s);
+  const b=document.createElement('button');b.className='btn-arcade primary';b.style.flex='1';b.textContent='🔥 Emetti Rogo →';b.onclick=resolveVote;act.appendChild(b);
  }
 }
 
 function resolveNight(){
- let target=game.players.find(p=>p.id===game.wolfTarget);
- if(!target||!target.alive||target.role==='wolf')
-  target=game.players.filter(p=>p.alive&&p.role!=='wolf')[0];
+ // Gestione obiettivo lupi
+ let wolfTargetId=game.wolfTarget;
+ if(!wolfTargetId){
+  const valid=game.players.filter(x=>x.alive&&x.role!=='wolf');
+  if(valid.length) wolfTargetId=valid[Math.floor(Math.random()*valid.length)].id;
+ }
  
- let victim=target;
- let guardMsg='';
- if(game.guardTarget&&target&&game.guardTarget===target.id){
-  victim=null;
-  guardMsg=' Per fortuna, la Guardia ha vegliato per tutta la notte sulla porta del bersaglio designato, sventando l’assalto!';
+ const victim=game.players.find(p=>p.id===wolfTargetId);
+ let savedByGuard=false;
+ if(game.guardTarget&&game.guardTarget===wolfTargetId){
+  savedByGuard=true;
  }
 
- if(victim&&victim.alive){
+ if(victim&&victim.alive&&!savedByGuard){
   victim.alive=false;
-  game.narrative='Il sole sorge su un villaggio in preda al terrore. Durante la notte si sono uditi ululati agghiaccianti: ' + victim.name + ' è stato trovato senza vita nella sua abitazione.' + guardMsg;
-  addLog(victim.name+' è stato sbranato nel sonno.');
- } else {
-  game.narrative='Il sole sorge pacifico tra i tetti del villaggio. La notte è trascorsa in silenzio e nessuno ha perso la vita.' + guardMsg;
-  addLog('La notte è trascorsa senza vittime.');
+  game.narrative='Il sole sorge sul villaggio. Una tragedia si è consumata: '+victim.name+' è stato sbranato durante la notte.';
+  addLog(victim.name+' è stato eliminato dai lupi.');
+ }else{
+  game.narrative='Il sole sorge pacifico. Grazie alla ronda notturna o a circostanze fortunate, nessuno è rimasto vittima dei lupi stanotte.';
+  addLog('Nessuna vittima stanotte.');
  }
  
  const w=checkWinner();if(w){finishGame(w);return;}
- game.phase='day';game.votes={};game.wolfTarget=game.guardTarget=game.seerTarget=game.witchPoisonTarget=null;renderGame();
+ game.phase='day';game.votes={};game.wolfTarget=game.guardTarget=game.seerTarget=null;renderGame();
 }
 
 function resolveVote(){
@@ -711,13 +627,13 @@ function resolveVote(){
  const max=Math.max(0,...Object.values(tally)),top=Object.keys(tally).filter(id=>tally[id]===max);
  
  if(top.length!==1){
-  game.narrative='Le accuse si sono divise equamente tra i sospettati. Tra urla e dita puntate, il villaggio non raggiunge una maggioranza e la piazza si svuota senza verdetti.';
+  game.narrative='Il villaggio si è diviso nelle accuse e nessuno è stato condannato al rogo.';
   addLog('Voto in parità: nessun condannato.');
- } else {
+ }else{
   const v=game.players.find(p=>p.id===top[0]);
   if(v&&v.alive){
    v.alive=false;
-   game.narrative='La piazza si è infiammata di accuse incrociate. Con una condanna schiacciante, il villaggio ha trascinato ' + v.name + ' al rogo tra le fiamme purificatrici!';
+   game.narrative='La piazza ha votato all’unanimità: '+v.name+' è stato condannato al rogo ed era un '+ROLE_DATA[v.role].name+'!';
    addLog(v.name+' è stato condannato al rogo.');
   }
  }
@@ -726,23 +642,22 @@ function resolveVote(){
 
 function nextNight(){
  game.round++;game.phase='night';
- game.narrative='La luce del giorno svanisce rapidamente. Il sole lascia spazio a un cielo plumbeo mentre il villaggio si chiude in casa per un’altra notte di attesa e terrore.';
+ game.narrative='La notte avvolge nuovamente le case. I ruoli speciali agiscono in segreto.';
  renderGame();
 }
 
 function checkWinner(){
  const alive=alivePlayers(),wolves=alive.filter(p=>p.role==='wolf').length,others=alive.length-wolves;
  if(wolves===0)return 'villaggio';
- if(game.winCondition==='all'&&others===0)return 'lupi';
- if(game.winCondition==='parity'&&wolves>=others)return 'lupi';
+ if(wolves>=others)return 'lupi';
  return null;
 }
 
 function finishGame(winner){
  document.body.classList.remove('night-mode');
- document.getElementById('winnerTitle').textContent=winner==='lupi'?'I Lupi hanno distrutto il villaggio':'Il Villaggio ha trionfato';
- document.getElementById('winnerDescription').textContent=winner==='lupi'?'I mannari hanno preso il sopravvento, azzerando ogni resistenza.':'La giustizia e la ragione hanno sgominato la minaccia nascosta.';
- document.getElementById('finalRoles').innerHTML=game.players.map(p=>`<div class="player-token"><div class="avatar">${roleOf(p).icon}</div><div style="overflow:hidden"><div style="font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${escapeHTML(p.name)}</div><div style="font-size:9px;color:var(--muted)">${roleOf(p).name}</div></div></div>`).join('');
+ document.getElementById('winnerTitle').textContent=winner==='lupi'?'I Lupi hanno vinto':'Il Villaggio ha trionfato';
+ document.getElementById('winnerDescription').textContent=winner==='lupi'?'I mannari hanno sterminato i residenti.':'Tutti i lupi sono stati eliminati.';
+ document.getElementById('finalRoles').innerHTML=game.players.map(p=>`<div class="player-token"><div class="avatar">${roleOf(p).icon}</div><div style="overflow:hidden"><div style="font-size:11px;font-weight:700">${escapeHTML(p.name)}</div><div style="font-size:9px;color:var(--muted)">${roleOf(p).name}</div></div></div>`).join('');
  gotoScreen('screen-end');
 }
 
